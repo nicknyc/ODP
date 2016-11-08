@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'physical_record/index'
+
+  get 'physical_record/new'
+
+  get 'physical_record/edit'
+
+  get 'physical_record/show'
+
   get 'diagnosis_record/index'
 
   get 'diagnosis_record/new'
