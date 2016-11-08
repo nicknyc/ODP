@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'presciption/index'
+
+  get 'presciption/show'
+
+  get 'presciption/new'
+
+  get 'presciption/edit'
+
   get 'schedule/index'
 
   get 'schedule/new'
