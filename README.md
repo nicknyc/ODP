@@ -8,10 +8,10 @@
 
 * To install those things on 
 
-* 1. Windows  - just download installer from 
+* Windows  - just download installer from 
 * https://www.ruby-lang.org/en/documentation/installation/#rubyinstaller
 
-* 2. Mac - follow instruction from gorails.com
+* Mac - follow instruction from gorails.com
 * for El capitain: https://gorails.com/setup/osx/10.11-el-capitan
 
 
