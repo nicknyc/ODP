@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  get 'schedule/index'
+
+  get 'schedule/new'
+
+  get 'schedule/edit'
+
+  get 'schedule/show'
+
+  get 'medicine/index'
+
+  get 'medicine/show'
+
+  get 'medicine/edit'
+
+  get 'medicine/new'
+
   get 'physical_record/index'
 
   get 'physical_record/new'
