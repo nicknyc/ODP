@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Lastest update based on
+* Ruby version 2.3.1
+* Rails version 5.0.0.1
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+## Installation
+1. Windows  
+ * just download installer from https://www.ruby-lang.org/en/documentation/installation/#rubyinstaller
 
-* Configuration
+2. Mac
+ * follow instruction from www.gorails.com
+ * for El capitain: https://gorails.com/setup/osx/10.11-el-capitan
 
-* Database creation
 
-* Database initialization
+## Deployment instructions
+after pull this to your local go there and run these in command line/terminal
+```
+$ bundle install
+$ rake db:create
+$ rake db:migrate
+$ rails s
+```
+Then, it should be running on localhost:3000
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Terminate server
+Just simply type Ctrl + C
