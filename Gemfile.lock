@@ -101,18 +101,12 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.1)
     multi_json (1.12.1)
-<<<<<<< HEAD
-    mysql2 (0.4.5-x64-mingw32)
-    nested_form (0.3.2)
-    nio4r (1.2.1)
-=======
     mysql2 (0.4.5)
     mysql2 (0.4.5-x64-mingw32)
     nested_form (0.3.2)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
->>>>>>> c431b7876ce9b5877b82b9ba57e0e9078966469c
     nokogiri (1.6.8.1-x64-mingw32)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
@@ -209,10 +203,7 @@ GEM
     websocket-extensions (0.1.2)
 
 PLATFORMS
-<<<<<<< HEAD
-=======
   ruby
->>>>>>> c431b7876ce9b5877b82b9ba57e0e9078966469c
   x64-mingw32
 
 DEPENDENCIES
@@ -235,8 +226,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-<<<<<<< HEAD
-   1.12.5
-=======
    1.13.6
->>>>>>> c431b7876ce9b5877b82b9ba57e0e9078966469c
