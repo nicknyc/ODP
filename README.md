@@ -7,12 +7,17 @@
 
 
 ## Installation
+
+0. set up MySQL server from http://dev.mysql.com/downloads/installer/  make your root password = password
+
 1. Windows  
  * just download installer from https://www.ruby-lang.org/en/documentation/installation/#rubyinstaller
+
 
 2. Mac
  * follow instruction from www.gorails.com
  * for El capitain: https://gorails.com/setup/osx/10.11-el-capitan
+ * set up MySQL server from http://dev.mysql.com/downloads/installer/  
 
 
 ## Deployment instructions
