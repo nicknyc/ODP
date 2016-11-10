@@ -1,10 +1,18 @@
-%h2 Sign up hi
+%h2 Sign up for คนไข้
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :email, required: true, autofocus: true
-    = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
-    = f.input :password_confirmation, required: true
+    = f.input :national_id , required: true, label: "รหัสบัตรประชาชน"
+    = f.input :first_name , required: true, label: "ชื่อ"
+    = f.input :last_name , required: true, label: "นามสกุล"
+    = f.input :sex, collection: [ 'M', 'F'], as: :radio_buttons, label_method: :last, value_method: :first, checked: 'M', item_wrapper_class: 'inline' , label: "เพศ"
+    = f.input :email , required: true, label: "อีเมลล์"
+    = f.input :password , required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) , label: "รหัสผ่าน"
+    = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
+    = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
+    = f.simple_fields_for :patients do |p|
+      = p.input :bloodType , required: true
+
   .form-actions
     = f.button :submit, "Sign up"
 = render "devise/shared/links"
