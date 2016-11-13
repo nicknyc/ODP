@@ -42,7 +42,6 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to users_path, notice: 'User was successfully created.' }
       else
-        raise
         format.html { redirect_to users_path, notice: 'Fail' }
       end
     end
