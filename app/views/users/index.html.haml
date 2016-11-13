@@ -1,0 +1,17 @@
+= flash[:notice]
+%h1 รายชื่อผู้ใช้ทั้งหมด
+= link_to 'เพิ่มผู้ใช้ใหม่', new_user_path
+
+%table
+  %thead
+    %tr
+      %th บทบาท
+      %th อีเมล
+      %th ชื่อ
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.user_type_type
+        %td= user.email
+        %td= user.first_name + " " + user.last_name
