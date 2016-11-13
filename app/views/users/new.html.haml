@@ -1,0 +1,20 @@
+%h2 Add User
+= simple_form_for(@user) do |f|
+  = f.error_notification
+  .form-inputs
+    = select_tag "Role", options_for_select([ 'Admin','Patient','Staff','Doctor','Nurse','Pharmacist' ], "Admin")
+    = f.input :national_id , required: true, label: "รหัสบัตรประชาชน"
+    = f.input :first_name , required: true, label: "ชื่อ"
+    = f.input :last_name , required: true, label: "นามสกุล"
+    = f.input :sex, collection: [ 'M', 'F'], as: :radio_buttons, label_method: :last, value_method: :first, checked: 'M', item_wrapper_class: 'inline' , label: "เพศ"
+    = f.input :email , required: true, label: "อีเมลล์"
+    = f.input :password , required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) , label: "รหัสผ่าน"
+    = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
+    = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
+    %label
+      *this will be hide with javascript*
+      bloodType
+      = text_field_tag 'bloodType'
+
+  .form-actions
+    = f.button :submit, "Sign up"
