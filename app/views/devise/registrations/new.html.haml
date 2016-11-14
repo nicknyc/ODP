@@ -11,7 +11,7 @@
     = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
     = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
     bloodType
-    = text_field_tag 'bloodType'
+    = text_field_tag 'bloodType', nil, :required => true
 
   .form-actions
     = f.button :submit, "Sign up"

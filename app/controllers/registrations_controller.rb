@@ -4,6 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
    build_resource(user_params)
+   
    #mine
    resource.user_type = Patient.create(bloodType: params[:bloodType])
    #
