@@ -10,8 +10,8 @@
     = f.input :password , required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) , label: "รหัสผ่าน"
     = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
     = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
-    = f.simple_fields_for :patients do |p|
-      = p.input :bloodType , required: true
+    bloodType
+    = text_field_tag 'bloodType'
 
   .form-actions
     = f.button :submit, "Sign up"
