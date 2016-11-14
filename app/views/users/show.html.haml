@@ -1,0 +1,37 @@
+.kn-users-show
+  .kn-users-show__field-header
+    ชื่อเต็ม
+  .kn-users-show__field-value
+    = @user.first_name+@user.last_name
+
+  .div
+    เพศ
+  .div
+    = @user.sex
+  .kn-users-show__field-header
+    อีเมล
+  .kn-users-show__field-value
+    = @user.email
+
+  .kn-users-show__field-header
+    บทบาท
+  .kn-users-show__field-value
+    = @user.user_type_type
+
+  .div
+    เลขไอดี
+  .div
+    =@user.ext_id
+
+  .div
+    หมายเลขบัตรประชาชน
+  .div
+    = @user.national_id
+
+  .div
+    เบอร์โทรศัพท์
+  .div
+    = @user.phone_number
+
+  = link_to 'แก้ไข', edit_user_path(@user), class: 'kn-button__primary'
+  = link_to 'กลับ', users_path

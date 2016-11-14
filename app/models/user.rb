@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   belongs_to :user_type, :polymorphic => true
 
+  validates_uniqueness_of :national_id
+
   def login=(login)
     @login = login
   end

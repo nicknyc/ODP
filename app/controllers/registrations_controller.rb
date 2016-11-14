@@ -8,17 +8,20 @@ class RegistrationsController < Devise::RegistrationsController
    #mine
    resource.user_type = Patient.create(bloodType: params[:bloodType])
    #
-   resource.save
 
-   year_id = Time.now.year % 100
-   type_id = sprintf '%03d', resource.user_type_id
-   user_id = sprintf '%03d', resource.id
 
-   ext_id = year_id.to_s+ "2" + type_id + user_id
+   if resource.save
 
-   resource.ext_id = ext_id
+     year_id = Time.now.year % 100
+     type_id = sprintf '%03d', resource.user_type_id
+     user_id = sprintf '%03d', resource.id
+     ext_id = year_id.to_s+ "2" + type_id + user_id
 
-   resource.save
+     resource.ext_id = ext_id
+
+     resource.save
+
+   end
 
 
 
