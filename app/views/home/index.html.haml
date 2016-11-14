@@ -10,3 +10,7 @@
 .div
   %a
     =link_to "Log Out", destroy_user_session_path, :method=>'delete'
+.div
+  %a
+    -if @user != nil
+      =link_to "edit user", edit_user_registration_path

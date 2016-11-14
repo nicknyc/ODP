@@ -15,9 +15,9 @@ class UsersController < ApplicationController
   end
 
 
-  # def edit
-  #
-  # end
+  def edit
+    @user = User.find(params[:id])
+  end
 
 
   def create
@@ -45,6 +45,28 @@ class UsersController < ApplicationController
         format.html { redirect_to users_path, notice: 'Fail' }
       end
     end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
+    if @user.user_type_type == 'Patient'
+      @user.user_type.update(bloodType: params[:bloodType])
+    end
+
+    admin_user_params = user_params
+    respond_to do |format|
+      if @user.update(admin_user_params)
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
+
   end
 
 
