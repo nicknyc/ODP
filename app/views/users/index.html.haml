@@ -8,6 +8,7 @@
       %th บทบาท
       %th อีเมล
       %th ชื่อ
+      %th
 
   %tbody
     - @users.each do |user|
@@ -15,3 +16,4 @@
         %td= user.user_type_type
         %td= user.email
         %td= user.first_name + " " + user.last_name
+        %td= link_to 'แก้ไข', edit_user_path(user)
