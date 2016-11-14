@@ -26,28 +26,35 @@ class UsersController < ApplicationController
 
     if params[:Role] == 'Admin'
       @user.user_type = Admin.create()
+      role_num = 1
     elsif params[:Role] == 'Patient'
       @user.user_type = Patient.new(bloodType: params[:bloodType])
+      role_num = 2
     elsif params[:Role] == 'Staff'
       @user.user_type = Staff.new()
+      role_num = 3
     elsif params[:Role] == 'Doctor'
       @user.user_type = Doctor.new()
+      role_num = 4
     elsif params[:Role] == 'Nurse'
       @user.user_type = Nurse.new()
+      role_num = 5
     else  params[:Role] == 'Pharmacist'
       @user.user_type = Pharmacist.new()
+      role_num = 6
     end
-    @user.save
-    year_id = Time.now.year % 100
-    type_id = sprintf '%03d', u.user_type_id
-    user_id = sprintf '%03d', u.id
 
-    ext_id = year_id.to_s + type_id + user_id
 
-    
 
     respond_to do |format|
       if @user.save
+        year_id = Time.now.year % 100
+        type_id = sprintf '%03d', @user.user_type_id
+        user_id = sprintf '%03d', @user.id
+        ext_id = year_id.to_s + role_num.to_s + type_id + user_id
+        @user.ext_id = ext_id.to_i
+
+        @user.save
         format.html { redirect_to users_path, notice: 'User was successfully created.' }
       else
         format.html { redirect_to users_path, notice: 'Fail' }

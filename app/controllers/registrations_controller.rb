@@ -11,12 +11,16 @@ class RegistrationsController < Devise::RegistrationsController
    resource.save
 
    year_id = Time.now.year % 100
-   type_id = sprintf '%03d', u.user_type_id
-   user_id = sprintf '%03d', u.id
+   type_id = sprintf '%03d', resource.user_type_id
+   user_id = sprintf '%03d', resource.id
 
-   ext_id = year_id.to_s + type_id + user_id
+   ext_id = year_id.to_s+ "2" + type_id + user_id
 
-   
+   resource.ext_id = ext_id
+
+   resource.save
+
+
 
    yield resource if block_given?
    if resource.persisted?
