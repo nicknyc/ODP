@@ -69,18 +69,25 @@ class UsersController < ApplicationController
 
   end
 
+  def ban
+    @user = User.find(params[:id])
+    @user.ban = true
+    @user.save
+    respond_to do |format|
+      format.html { redirect_to users_path, notice: 'User was successfully banned.' }
+      format.json { head :no_content }
+    end
+  end
 
-  # def update
-  #
-  # end
-  #
-  # def destroy
-  #
-  # end
-  #
-  # def undelete
-  #
-  # end
+  def unban
+    @user = User.find(params[:id])
+    @user.ban = false
+    @user.save
+    respond_to do |format|
+      format.html { redirect_to users_path, notice: 'User was successfully unbanned.' }
+      format.json { head :no_content }
+    end
+  end
 
 
 

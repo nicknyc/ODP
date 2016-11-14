@@ -47,6 +47,8 @@ Rails.application.routes.draw do
 
   get 'appointment/show'
 
+  get 'unban_user/:id' => 'users#unban'
+  get 'ban_user/:id' => 'users#ban'
 
 
 
