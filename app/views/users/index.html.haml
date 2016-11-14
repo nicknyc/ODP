@@ -8,6 +8,7 @@
       %th บทบาท
       %th อีเมล
       %th ชื่อ
+      %th ban status
       %th
 
   %tbody
@@ -16,4 +17,9 @@
         %td= user.user_type_type
         %td= user.email
         %td= user.first_name + " " + user.last_name
+        %th
+          -if user.ban?
+            = "banned"
+          -else
+            = "active"
         %td= link_to 'แก้ไข', edit_user_path(user)

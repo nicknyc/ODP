@@ -23,3 +23,11 @@
   .form-actions
     - btn_label = @user.persisted? ? "Update" : "Create"
     = f.button :submit, btn_label
+
+  -if @user.persisted?
+    -if @user.ban?
+      =link_to 'unban' , '/unban_user/' + @user.id.to_s , :data => { :confirm => 'ยืนยันการคืนสถานะผู้ใช้?'}
+    -else
+      =link_to 'ban' , '/ban_user/' + @user.id.to_s , :data => { :confirm => 'ยืนยันการระงับผู้ใช้?'}
+
+=link_to 'กลับ' , users_path
