@@ -22,4 +22,6 @@
             = "banned"
           -else
             = "active"
-        %td= link_to 'แก้ไข', edit_user_path(user)
+        %td
+          = link_to 'ดู', user
+          = link_to 'แก้ไข', edit_user_path(user)
