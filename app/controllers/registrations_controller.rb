@@ -4,11 +4,20 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
    build_resource(user_params)
-   
+
    #mine
    resource.user_type = Patient.create(bloodType: params[:bloodType])
    #
    resource.save
+
+   year_id = Time.now.year % 100
+   type_id = sprintf '%03d', u.user_type_id
+   user_id = sprintf '%03d', u.id
+
+   ext_id = year_id.to_s + type_id + user_id
+
+   
+
    yield resource if block_given?
    if resource.persisted?
      if resource.active_for_authentication?

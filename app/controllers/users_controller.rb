@@ -38,6 +38,14 @@ class UsersController < ApplicationController
       @user.user_type = Pharmacist.new()
     end
     @user.save
+    year_id = Time.now.year % 100
+    type_id = sprintf '%03d', u.user_type_id
+    user_id = sprintf '%03d', u.id
+
+    ext_id = year_id.to_s + type_id + user_id
+
+    
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path, notice: 'User was successfully created.' }
