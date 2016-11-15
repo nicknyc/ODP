@@ -1,2 +1,23 @@
 %h1 Schedule#edit
 %p Find me in app/views/schedule/edit.html.haml
+%table{:border => "1"}
+  %thead
+    %tr
+      %th กะ
+      %th วันที่
+      %th จำนวนนัด
+      %th
+
+
+
+  %tbody
+    - @schedules.each do |s|
+      %tr{:id => "schedule" + s.id.to_s}
+        %td
+          -if s.shift == 0
+            = "เช้า"
+          -else
+            = "เย็น"
+        %td= s.date
+        %td= s.appointment
+        %td= button_tag "ลบ" , type: 'button', class: 'remove' , id: s.id 

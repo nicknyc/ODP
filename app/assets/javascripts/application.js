@@ -21,4 +21,14 @@ $(document).ready(function() {
     $('.role').hide();
     $('#'+$(this).val()).show();
   })
+  $(".remove").click(function() {
+      if (confirm($(this).data("confirm")))
+      {$('#schedule'+ this.id.toString()).hide();
+      $.ajax({
+          url: '/remove_schedule',
+          type: 'GET',
+          data: { id: this.id },
+          dataType: 'json'
+        });}
+  })
 })

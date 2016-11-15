@@ -37,4 +37,5 @@
                       = "เย็น"
                   %td= s.date
                   %td= s.appointment
-        %td= "ดู"
+        %td
+          = link_to 'แก้ไข', edit_schedule_path(user)

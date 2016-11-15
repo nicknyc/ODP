@@ -1,2 +1,20 @@
 %h1 Schedule#show
-%p Find me in app/views/schedule/show.html.haml
+%table{:border => "1"}
+  %thead
+    %tr
+      %th กะ
+      %th วันที่
+      %th จำนวนนัด
+
+
+
+  %tbody
+    - @schedules.each do |s|
+      %tr
+        %td
+          -if s.shift == 0
+            = "เช้า"
+          -else
+            = "เย็น"
+        %td= s.date
+        %td= s.appointment
