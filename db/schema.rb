@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115131413) do
+ActiveRecord::Schema.define(version: 20161115133433) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
@@ -19,9 +19,8 @@ ActiveRecord::Schema.define(version: 20161115131413) do
 
   create_table "doctors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "proficiency"
-    t.text     "schedule",    limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "nurses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
