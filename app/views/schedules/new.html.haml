@@ -1,2 +1,13 @@
 %h1 Schedule#new
 %p Find me in app/views/schedule/new.html.haml
+
+= simple_form_for @schedule do |f|
+  -if @user != nil
+    = f.input :doctor_id, input_html: {value: f.object.doctor_id || @user.id}
+  -else
+    = f.input :doctor_id
+  Shift
+  = select_tag "Shift", options_for_select({ 'เช้า'=>'0','เย็น'=>'1'} ,'0')
+  Date
+  = text_field_tag "Date", nil ,class: 'daterange'
+  = f.button :submit, 'Submit'

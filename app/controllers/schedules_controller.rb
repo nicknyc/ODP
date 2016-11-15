@@ -4,10 +4,19 @@ class SchedulesController < ApplicationController
   end
 
   def new
+    @schedule = Schedule.new
+    @user = User.where(id: params[:id]).first
+  end
+
+  def create
+    raise
+    #  Date.strptime(params[:Date][0..9], "%m/%d/%Y")
+    #  Date.strptime(params[:Date][13..22], "%m/%d/%Y") 
   end
 
   def edit
     @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? && users.id = ?',false,params[:id]).order('date ASC','shift ASC')
+    @user = User.find(params[:id])
   end
 
   def show

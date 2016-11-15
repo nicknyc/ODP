@@ -14,6 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require moment
+//= require bootstrap
+//= require daterangepicker
 
 $(document).ready(function() {
   $('.role').hide();
@@ -31,4 +34,5 @@ $(document).ready(function() {
           dataType: 'json'
         });}
   })
+  $('input[class="daterange"]').daterangepicker();
 })

@@ -32,8 +32,9 @@ gem 'haml-rails'
 gem 'pundit'
 gem 'rails_admin'
 gem 'simple_form'
-
-
+gem 'bootstrap-daterangepicker-rails'
+gem 'momentjs-rails'
+gem 'bootstrap'
 
 
 

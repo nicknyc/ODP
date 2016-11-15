@@ -1,5 +1,6 @@
 %h1 Schedule#edit
 %p Find me in app/views/schedule/edit.html.haml
+=link_to 'Add Schedule' , new_schedule_path(id: @user.id)
 %table{:border => "1"}
   %thead
     %tr
@@ -20,4 +21,4 @@
             = "เย็น"
         %td= s.date
         %td= s.appointment
-        %td= button_tag "ลบ" , type: 'button', class: 'remove' , id: s.id 
+        %td= button_tag "ลบ" , type: 'button', class: 'remove' , id: s.id
