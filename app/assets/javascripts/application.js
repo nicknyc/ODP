@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $('.role').hide();
+  $('#Role').change(function () {
+    $('.role').hide();
+    $('#'+$(this).val()).show();
+  })
+})
