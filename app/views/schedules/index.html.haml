@@ -1,0 +1,40 @@
+= flash[:notice]
+%h1 Schedule
+= link_to 'Add Schedule', new_schedule_path
+
+%table{:border => "1"}
+  %thead
+    %tr
+      %th id
+      %th ชื่อหมอ
+      %th ตารางเวลา
+      %th
+
+
+  %tbody
+    - @users.each do |user|
+      -schedule = user.user_type.schedules.order('date ASC','shift ASC')
+      %tr
+        %td= user.ext_id
+        %td= user.first_name + user.last_name
+        %td
+          %table{:border => "1"}
+            %thead
+              %tr
+                %th กะ
+                %th วันที่
+                %th จำนวนนัด
+
+
+
+            %tbody
+              - schedule.each do |s|
+                %tr
+                  %td
+                    -if s.shift == 0
+                      = "เช้า"
+                    -else
+                      = "เย็น"
+                  %td= s.date
+                  %td= s.appointment
+        %td= "ดู"
