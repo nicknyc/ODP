@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+ /*
+
+ */
+@import "bootstrap";
+@import "daterangepicker-bs3";
+
+.ui-helper-hidden-accessible { display:none; }

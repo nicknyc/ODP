@@ -3,7 +3,7 @@
   = f.error_notification
   .form-inputs
     -if !@user.persisted?
-      = select_tag "Role", options_for_select([ 'Admin','Patient','Staff','Doctor','Nurse','Pharmacist' ],'Admin')
+      = select_tag "Role", options_for_select({ 'Admin'=>'admin','Patient'=>'patient','Staff'=>'staff','Doctor'=>'doctor','Nurse'=>'nurse','Pharmacist'=>'pharmacist'} ,'admin')
     = f.input :national_id , required: true, label: "รหัสบัตรประชาชน"
     = f.input :first_name , required: true, label: "ชื่อ"
     = f.input :last_name , required: true, label: "นามสกุล"
@@ -13,13 +13,19 @@
     = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
     = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
     %label
-      - if !@user.persisted? || @user.user_type_type == "Patient"
-        *this will be hide with javascript*
-        - bloodType_placeholder = @user.persisted?&&@user.user_type_type=='Patient' ? @user.user_type.bloodType : nil
+      - if !@user.persisted?
+        .role#patient
+          bloodType
+          = text_field_tag 'bloodType'
+        .role#doctor
+          proficiency
+          = text_field_tag 'proficiency'
+      -elsif @user.persisted?&&@user.user_type_type == 'Patient'
         bloodType
-        //this tag suppose to be required if role = Patient. need javascript
-        = text_field_tag 'bloodType' , bloodType_placeholder
-
+        = text_field_tag 'bloodType' , @user.user_type.bloodType
+      -elsif @user.persisted?&&@user.user_type_type == 'Doctor'
+        proficiency
+        = text_field_tag 'proficiency' ,@user.user_type.proficiency
   .form-actions
     - btn_label = @user.persisted? ? "Update" : "Create"
     = f.button :submit, btn_label

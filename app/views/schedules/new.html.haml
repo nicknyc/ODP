@@ -1,0 +1,38 @@
+%h1 Schedule#new
+
+
+= simple_form_for @schedule do |f|
+  -if !@user.nil?
+    = "for Dr." + @user.first_name + " " + @user.last_name
+  -else
+    = text_field_tag 'doc_names' , "" , placeholder: "ชื่อหมอ", data: {autocomplete_source: '/doc_names'}
+  = f.text_field :doctor_id , hidden: true ,value: @user.nil? ?  nil : @user.user_type_id
+  .schedule-slot#1
+    = "Shift"
+    = select_tag "Shift0" , options_for_select({ 'เช้า'=>'0','เย็น'=>'1'} ,'0')
+    = "Date"
+    = text_field_tag "Date0", nil ,class: 'daterange'
+  .schedule-slot#2{ :style => "display: none;" }
+    = "Shift"
+    = select_tag "Shift1" , options_for_select({ 'เช้า'=>'0','เย็น'=>'1'} ,'0')
+    = "Date"
+    = text_field_tag "Date1", nil ,class: 'daterange'
+  .schedule-slot#3{ :style => "display: none;" }
+    = "Shift"
+    = select_tag "Shift2" , options_for_select({ 'เช้า'=>'0','เย็น'=>'1'} ,'0')
+    = "Date"
+    = text_field_tag "Date2", nil ,class: 'daterange'
+  .schedule-slot#4{ :style => "display: none;" }
+    = "Shift"
+    = select_tag "Shift3" , options_for_select({ 'เช้า'=>'0','เย็น'=>'1'} ,'0')
+    = "Date"
+    = text_field_tag "Date3", nil ,class: 'daterange'
+  .schedule-slot#5{ :style => "display: none;" }
+    = "Shift"
+    = select_tag "Shift4" , options_for_select({ 'เช้า'=>'0','เย็น'=>'1'} ,'0')
+    = "Date"
+    = text_field_tag "Date4", nil ,class: 'daterange'
+  .schedule-add
+    = button_tag "เพิ่มช่วง" , type: 'button', class: 'add-schedule btn'
+
+  = f.button :submit, 'Submit'

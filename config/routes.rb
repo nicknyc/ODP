@@ -7,13 +7,13 @@ Rails.application.routes.draw do
 
   get 'presciption/edit'
 
-  get 'schedule/index'
-
-  get 'schedule/new'
-
-  get 'schedule/edit'
-
-  get 'schedule/show'
+  # get 'schedule/index'
+  #
+  # get 'schedule/new'
+  #
+  # get 'schedule/edit'
+  #
+  # get 'schedule/show'
 
   get 'medicine/index'
 
@@ -49,13 +49,15 @@ Rails.application.routes.draw do
 
   get 'unban_user/:id' => 'users#unban'
   get 'ban_user/:id' => 'users#ban'
-
-
+  get 'remove_schedule' => 'schedules#remove_schedule'
+  get '/doc_names', to: 'users#autoname'
 
   devise_for :models
   scope "/admin" do
     resources :users
   end
+  resources :schedules
+
   devise_for :users, controllers: { registrations: "registrations" }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "home#index"

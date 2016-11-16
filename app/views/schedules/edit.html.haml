@@ -1,0 +1,25 @@
+%h1 Schedule#edit
+= "for Dr." + @user.first_name + " " + @user.last_name
+.div
+  =link_to 'Add Schedule' , new_schedule_path(id: @user.id) , method: :get
+%table{:border => "1"}
+  %thead
+    %tr
+      %th กะ
+      %th วันที่
+      %th จำนวนนัด
+      %th
+
+
+
+  %tbody
+    - @schedules.each do |s|
+      %tr{:id => "schedule" + s.id.to_s}
+        %td
+          -if s.shift == 0
+            = "เช้า"
+          -else
+            = "เย็น"
+        %td= s.date
+        %td= s.appointment
+        %td= button_tag "ลบ" , class: 'remove' , id: s.id

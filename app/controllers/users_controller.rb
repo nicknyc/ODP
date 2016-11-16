@@ -105,6 +105,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def autoname
+    @users = User.order(:first_name).where(user_type_type: 'Doctor').where('first_name like ? || last_name like ? || ext_id like ?',"%" +params[:term]+ "%","%" +params[:term]+ "%","%" +params[:term]+ "%")
+    render json: @users.map{|u| {label: u.first_name + " " + u.last_name ,value: u.id}}
+  end
+
 
 
   private
