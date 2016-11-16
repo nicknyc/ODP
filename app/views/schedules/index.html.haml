@@ -16,7 +16,7 @@
       -schedule = user.user_type.schedules.order('date ASC','shift ASC')
       %tr
         %td= user.ext_id
-        %td= user.first_name + user.last_name
+        %td= user.first_name + " " + user.last_name
         %td
           %table{:border => "1"}
             %thead

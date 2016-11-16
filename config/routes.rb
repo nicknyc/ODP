@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   get 'unban_user/:id' => 'users#unban'
   get 'ban_user/:id' => 'users#ban'
   get 'remove_schedule' => 'schedules#remove_schedule'
-
+  get '/doc_names', to: 'users#autoname'
 
   devise_for :models
   scope "/admin" do
