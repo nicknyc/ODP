@@ -1,5 +1,6 @@
 class Doctor < ApplicationRecord
   serialize  :schedule, Array
   has_one :user, :as => :user_type
-  has_many :schedules
+  has_many :schedules , dependent: :destroy
+  has_many :appointments
 end
