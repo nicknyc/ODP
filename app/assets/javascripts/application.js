@@ -11,22 +11,23 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 //= require moment
 //= require bootstrap
 //= require daterangepicker
 //= require jquery-ui/autocomplete
+//= require turbolinks
 
-$(document).ready(function() {
+var ready = function () {
   $('.role').hide();
   $('#Role').change(function () {
     $('.role').hide();
     $('#'+$(this).val()).show();
   })
   $(".remove").click(function() {
-      if (confirm($(this).data("confirm")))
+      if (confirm('ยืนยันการลบ?'))
       {$('#schedule'+ this.id.toString()).hide();
       $.ajax({
           url: '/remove_schedule',
@@ -58,10 +59,9 @@ $(document).ready(function() {
     $('input[class="daterange"]').val('');
   });
 
-  $('.schedule-slot').hide();
-  $('.schedule-slot#1').show();
   var slot_no = 2;
   $(".add-schedule").click(function() {
+    console.log('hi')
     $('.schedule-slot#'+slot_no).show();
     console.log(slot_no)
     if(slot_no == 5) {
@@ -69,4 +69,7 @@ $(document).ready(function() {
     }
     slot_no++
   })
-})
+};
+
+$(document).ready(ready);
+$(document).on('page:change', ready);

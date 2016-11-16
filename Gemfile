@@ -35,7 +35,7 @@ gem 'simple_form'
 gem 'bootstrap-daterangepicker-rails'
 gem 'momentjs-rails'
 gem 'bootstrap'
-
+gem 'jquery-turbolinks'
 
 
 
