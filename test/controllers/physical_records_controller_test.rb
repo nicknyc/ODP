@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PhysicalRecordControllerTest < ActionDispatch::IntegrationTest
+class PhysicalRecordsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get physical_record_index_url
     assert_response :success
