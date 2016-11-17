@@ -17,6 +17,11 @@ class DiagnosisRecordsController < ApplicationController
 
   end
 
+  def show
+    @appointment = Appointment.find(params[:id])
+    @prescriptions = Prescription.where(appointment_id: params[:id])
+  end
+
 
 
 end

@@ -65,6 +65,12 @@ var ready = function () {
           dataType: 'json'
         });}
   })
+  $(".pres_done").hide()
+  $(".medcheck").change(function(){
+    if ($('.medcheck:checked').length == $('.medcheck').length) {
+       $(".pres_done").show()
+    }
+});
 
   $('#doc_names').autocomplete({
     source: $('#doc_names').data('autocomplete-source'),

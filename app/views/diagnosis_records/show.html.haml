@@ -1,2 +1,37 @@
 %h1 DiagnosisRecord#show
 %p Find me in app/views/diagnosis_record/show.html.haml
+.div
+  ชื่อคนไข้ :
+  =@appointment.patient.user.first_name + " " + @appointment.patient.user.last_name
+.div
+  ชื่อหมอ :
+  =@appointment.doctor.user.first_name + " " + @appointment.doctor.user.last_name
+.div
+  อาการ :
+  =@appointment.symptom
+.div
+  รายการแพ้ยา :
+  =@appointment.patient.allergyRecordList
+.div
+  สถานะการรักษา :
+  =@appointment.status
+.div
+  ผลการวินิจฉัย :
+  =@appointment.diagnosis_record
+.div
+  ยาที่จ่าย :
+  -if @prescriptions != []
+    .previous-prescription
+      %table{:border => "1"}
+        %thead
+          %tr
+            %th ยา
+            %th จำนวน
+        %tbody
+          - @prescriptions.each do |pr|
+            %tr{:id => "prescription" + pr.id.to_s}
+              %td= pr.med
+              %td= pr.no
+
+=link_to 'แก้ไขการตรวจ' , edit_diagnosis_record_path(id: @appointment.id)
+=link_to 'กลับ' , diagnosis_records_path

@@ -1,0 +1,21 @@
+%h1 prescription#show
+%p Find me in app/views/prescription/show.html.haml
+ยาที่จ่าย :
+-if @prescriptions != []
+  .previous-prescription
+    %table{:border => "1"}
+      %thead
+        %tr
+          %th ยา
+          %th จำนวน
+          %th หยิบยา
+      %tbody
+        - @prescriptions.each do |pr|
+          %tr{:id => "prescription" + pr.id.to_s}
+            %td= pr.med
+            %td= pr.no
+            %td= check_box_tag pr.id, 1 , false , class: 'medcheck'
+
+-# =button_tag "เสร็จสิ้นการจ่ายยา" ,class: 'pres_done' , id: @appointment.id
+.pres_done
+  =link_to "เสร็จสิ้นการจ่ายยา" , '/pres_done?id=' + @appointment.id.to_s

@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  get 'prescription/index'
-
-  get 'prescription/show'
-
-  get 'prescription/new'
-
-  get 'prescription/edit'
+  # get 'prescription/index'
+  #
+  # get 'prescription/show'
+  #
+  # get 'prescription/new'
+  #
+  # get 'prescription/edit'
 
   # get 'schedule/index'
   #
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get 'ban_user/:id' => 'users#ban'
   get 'remove_schedule' => 'schedules#remove_schedule'
   get 'remove_med' => 'prescriptions#remove_med'
+  get 'pres_done' => 'prescriptions#pres_done'
   get '/doc_names', to: 'users#autoname'
   get '/pat_names', to: 'users#autopat'
   get '/pro_names', to: 'users#autopro'
@@ -56,6 +57,7 @@ Rails.application.routes.draw do
   resources :appointments
   resources :physical_records
   resources :diagnosis_records
+  resources :prescriptions
 
   devise_for :users, controllers: { registrations: "registrations" }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
