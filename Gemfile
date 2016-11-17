@@ -36,7 +36,7 @@ gem 'bootstrap-daterangepicker-rails'
 gem 'momentjs-rails'
 gem 'bootstrap'
 gem 'jquery-turbolinks'
-
+gem 'gon'
 
 
 

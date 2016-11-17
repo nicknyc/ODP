@@ -1,3 +1,3 @@
 class PhysicalRecord < ApplicationRecord
-  has_one :appointment
+  belongs_to :appointment
 end
