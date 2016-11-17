@@ -1,2 +1,11 @@
 %h1 Appointment#edit
-%p Find me in app/views/appointment/edit.html.haml
+%p เลื่อนนัด
+= simple_form_for(@appointment) do |f|
+  .div
+    เวลานัดเดิม
+    = @appointment.schedule.date.to_s + (@appointment.schedule.shift == 1 ? " : เย็น" : " : เช้า")
+  .div
+    เวลานัดที่จะเลื่อนไป
+    = select_tag "new_date" , options_for_select(@availarray)
+
+  = f.button :submit,"ยืนยันการเลื่อน"
