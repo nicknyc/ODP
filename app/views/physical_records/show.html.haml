@@ -1,0 +1,20 @@
+%h1 PhysicalRecord#show
+%p Find me in app/views/physical_record/show.html.haml
+= "For " + @physical_record.appointment.patient.user.first_name + " " + @physical_record.appointment.patient.user.last_name
+.div
+  สภาพร่างกาย:
+  .div
+    น้ำหนัก
+    = @physical_record.weight
+  .div
+    ส่วนสูง
+    = @physical_record.height
+  .div
+    ความดัน
+    = @physical_record.bloodPressure
+  .div
+    อัตราการเต้นของหัวใจ
+    = @physical_record.heartRate
+
+=link_to "แก้ไข" , edit_physical_record_path(@physical_record)
+=link_to "กลับ" , physical_records_path
