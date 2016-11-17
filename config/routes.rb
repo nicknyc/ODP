@@ -39,24 +39,28 @@ Rails.application.routes.draw do
 
   get 'diagnosis_record/show'
 
-  get 'appointment/index'
-
-  get 'appointment/edit'
-
-  get 'appointment/new'
-
-  get 'appointment/show'
+  # get 'appointment/index'
+  #
+  # get 'appointment/edit'
+  #
+  # get 'appointment/new'
+  #
+  # get 'appointment/show'
 
   get 'unban_user/:id' => 'users#unban'
   get 'ban_user/:id' => 'users#ban'
   get 'remove_schedule' => 'schedules#remove_schedule'
   get '/doc_names', to: 'users#autoname'
-
+  get '/pat_names', to: 'users#autopat'
+  get '/pro_names', to: 'users#autopro'
+  get '/get_avail', to: 'appointments#get_avail'
   devise_for :models
   scope "/admin" do
     resources :users
   end
+  get 'destroy_appt/:id' => 'appointments#destroy'
   resources :schedules
+  resources :appointments
 
   devise_for :users, controllers: { registrations: "registrations" }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

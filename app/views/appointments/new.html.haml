@@ -1,0 +1,36 @@
+%h1 Appointment#new
+=current_user.user_type_type
+= simple_form_for @appointment do |f|
+
+  -if current_user.user_type_type == 'Patient'
+    = select_tag "doc_search" , options_for_select({ 'หมอ'=>'doc','แผนก'=>'pro'} ,'doc')
+    .doc#doc
+      = text_field_tag 'doc_names' , "" , placeholder: "ชื่อหมอ", data: {autocomplete_source: '/doc_names'}
+    .doc#pro
+      = text_field_tag 'pro_names' , "" , placeholder: "ชื่อแผนก", data: {autocomplete_source: '/pro_names'}
+  -elsif current_user.user_type_type == 'Doctor'
+    = text_field_tag 'pro_names' , "" , hidden: true
+    = text_field_tag 'pat_names' , "" , placeholder: "ชื่อคนไข้", data: {autocomplete_source: '/pat_names'}
+  -elsif current_user.user_type_type == "Staff"
+    = select_tag "doc_search" , options_for_select({ 'หมอ'=>'doc','แผนก'=>'pro'} ,'doc')
+    .doc#doc
+      = text_field_tag 'doc_names' , "" , placeholder: "ชื่อหมอ", data: {autocomplete_source: '/doc_names'}
+    .doc#pro
+      = text_field_tag 'pro_names' , "" , placeholder: "ชื่อแผนก", data: {autocomplete_source: '/pro_names'}
+    = text_field_tag 'pat_names' , "" , placeholder: "ชื่อคนไข้", data: {autocomplete_source: '/pat_names'}
+  = f.text_field :doctor_id , hidden: true , required: true ,value: current_user.user_type_type == 'Doctor' ? current_user.user_type_id : nil
+  = f.text_field :patient_id , hidden: true , required: true ,value: current_user.user_type_type == 'Patient' ? current_user.user_type_id : nil
+  = button_tag "ค้นหาเวลานัด" , type: 'button', class: 'get_avail btn'
+
+  .div
+    %label
+      วันนัดหมาย
+      = text_field_tag 'appointment_date' , nil , readonly: true
+      = button_tag "เปลี่ยนเวลา" , type: 'button', class: 'change_time btn'
+
+  .div
+    %label
+      อาการเบื้องต้น
+      =f.input :symptom, :input_html => {:rows => 10} , label: false
+
+  = f.button :submit, "ยืนยันการนัดหมาย"

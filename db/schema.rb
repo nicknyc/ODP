@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115133433) do
+ActiveRecord::Schema.define(version: 20161117012846) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "appointments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "status",                           default: "Pending"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.text     "diagnosis_record",   limit: 65535
+    t.text     "presciption",        limit: 65535
+    t.integer  "patient_id"
+    t.integer  "doctor_id"
+    t.integer  "physical_record_id"
+    t.integer  "schedule_id"
+    t.text     "symptom",            limit: 65535
   end
 
   create_table "doctors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -38,6 +51,16 @@ ActiveRecord::Schema.define(version: 20161115133433) do
   create_table "pharmacists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "physical_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "weight"
+    t.integer  "height"
+    t.string   "bloodPressure"
+    t.integer  "heartRate"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "appointment_id"
   end
 
   create_table "schedules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

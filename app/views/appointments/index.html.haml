@@ -1,0 +1,38 @@
+= flash[:notice]
+%h1 Appointment#index
+= current_user.first_name
+= link_to 'เพิ่มการนัดหมาย', new_appointment_path , method: :get
+
+%table
+  %thead
+    %tr
+      %th ลำดับ
+      %th วันที่
+      %th ช่วงเวลา
+      -if current_user.user_type_type == "Patient" || current_user.user_type_type == "Staff"
+        %th หมอ
+      -if current_user.user_type_type == "Doctor" || current_user.user_type_type == "Staff"
+        %th คนไข้
+      %th สถานะ
+      %th
+
+  %tbody
+    - @appointments.each_with_index do |a,i|
+      %tr
+        %td= i+1
+        %td= a.schedule.date
+        %td
+          -if a.schedule.shift == 0
+            = "เช้า"
+          -else
+            = "บ่าย"
+          -if current_user.user_type_type == "Patient" || current_user.user_type_type == "Staff"
+            %th= a.doctor.user.first_name + " " + a.doctor.user.last_name
+          -elsif current_user.user_type_type == "Doctor" || current_user.user_type_type == "Staff"
+            %th= a.patient.user.first_name + " " + a.patient.user.last_name
+        %td= a.status
+        %td
+          =link_to "ดู",a
+          -if a.status != "Done"
+            =link_to "เลื่อน",edit_appointment_path(a)
+            =link_to "ยกเลิก", '/destroy_appt/' + a.id.to_s , :data => { :confirm => 'ยืนยันการยกเลิก?'}

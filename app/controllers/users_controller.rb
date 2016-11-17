@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.all
+    @users = User.all.order(:user_type_type)
   end
 
 
@@ -24,23 +24,22 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-
-    if params[:Role] == 'Admin'
+    if params[:Role] == 'admin'
       @user.user_type = Admin.create()
       role_num = 1
-    elsif params[:Role] == 'Patient'
+    elsif params[:Role] == 'patient'
       @user.user_type = Patient.new(bloodType: params[:bloodType])
       role_num = 2
-    elsif params[:Role] == 'Staff'
+    elsif params[:Role] == 'staff'
       @user.user_type = Staff.new()
       role_num = 3
-    elsif params[:Role] == 'Doctor'
+    elsif params[:Role] == 'doctor'
       @user.user_type = Doctor.new()
       role_num = 4
-    elsif params[:Role] == 'Nurse'
+    elsif params[:Role] == 'nurse'
       @user.user_type = Nurse.new()
       role_num = 5
-    else  params[:Role] == 'Pharmacist'
+    else  params[:Role] == 'pharmacist'
       @user.user_type = Pharmacist.new()
       role_num = 6
     end
@@ -72,6 +71,10 @@ class UsersController < ApplicationController
 
     if @user.user_type_type == 'Patient'
       @user.user_type.update(bloodType: params[:bloodType])
+    end
+
+    if @user.user_type_type == 'Doctor'
+      @user.user_type.update(proficiency: params[:proficiency])
     end
 
     admin_user_params = user_params
@@ -107,7 +110,17 @@ class UsersController < ApplicationController
 
   def autoname
     @users = User.order(:first_name).where(user_type_type: 'Doctor').where('first_name like ? || last_name like ? || ext_id like ?',"%" +params[:term]+ "%","%" +params[:term]+ "%","%" +params[:term]+ "%")
-    render json: @users.map{|u| {label: u.first_name + " " + u.last_name ,value: u.id}}
+    render json: @users.map{|u| {label: u.first_name + " " + u.last_name ,value: u.user_type_id}}
+  end
+
+  def autopat
+    @users = User.order(:first_name).where(user_type_type: 'Patient').where('first_name like ? || last_name like ? || ext_id like ?',"%" +params[:term]+ "%","%" +params[:term]+ "%","%" +params[:term]+ "%")
+    render json: @users.map{|u| {label: u.first_name + " " + u.last_name ,value: u.user_type_id}}
+  end
+
+  def autopro
+    @proficiencies = Doctor.where('proficiency like ?',"%" +params[:term]+ "%").pluck(:proficiency)
+    render json: @proficiencies.map{|u| {label: u ,value: u}}
   end
 
 
