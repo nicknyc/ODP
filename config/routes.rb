@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   scope "/admin" do
     resources :users
   end
+  get 'destroy_appt/:id' => 'appointments#destroy'
   resources :schedules
   resources :appointments
 

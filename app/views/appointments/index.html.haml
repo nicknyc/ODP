@@ -35,3 +35,4 @@
           =link_to "ดู",a
           -if a.status != "Done"
             =link_to "เลื่อน",edit_appointment_path(a)
+            =link_to "ยกเลิก", '/destroy_appt/' + a.id.to_s , :data => { :confirm => 'ยืนยันการยกเลิก?'}
