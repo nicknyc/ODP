@@ -10,19 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117012846) do
 
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   create_table "appointments", force: :cascade do |t|
     t.string   "status",             default: "Pending"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.text     "diagnosis_record"
     t.text     "presciption"
+=======
+  create_table "appointments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "status",                           default: "Pending"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.text     "diagnosis_record",   limit: 65535
+>>>>>>> origin/'feature/record'
     t.integer  "patient_id"
     t.integer  "doctor_id"
     t.integer  "physical_record_id"
@@ -63,7 +70,19 @@ ActiveRecord::Schema.define(version: 20161117012846) do
     t.integer  "appointment_id"
   end
 
+<<<<<<< HEAD
   create_table "schedules", force: :cascade do |t|
+=======
+  create_table "prescriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "appointment_id"
+    t.string   "med"
+    t.integer  "no"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "schedules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+>>>>>>> origin/'feature/record'
     t.integer  "doctor_id"
     t.integer  "shift"
     t.date     "date"

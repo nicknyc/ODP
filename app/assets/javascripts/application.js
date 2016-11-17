@@ -54,6 +54,24 @@ var ready = function () {
           dataType: 'json'
         });}
   })
+
+  $(".remove_med").click(function() {
+      if (confirm('ยืนยันการลบ?'))
+      {$('#prescription'+ this.id.toString()).hide();
+      $.ajax({
+          url: '/remove_med',
+          type: 'GET',
+          data: { id: this.id },
+          dataType: 'json'
+        });}
+  })
+  $(".pres_done").hide()
+  $(".medcheck").change(function(){
+    if ($('.medcheck:checked').length == $('.medcheck').length) {
+       $(".pres_done").show()
+    }
+});
+
   $('#doc_names').autocomplete({
     source: $('#doc_names').data('autocomplete-source'),
     change: function(event,ui) {
@@ -122,6 +140,8 @@ var ready = function () {
     }
     slot_no++
   })
+
+
 
 
   $(".get_avail").click(function() {
