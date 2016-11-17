@@ -1,9 +1,11 @@
 class AppointmentsController < ApplicationController
   def index
     if current_user.user_type_type == "Patient"
-      @appointments = Appointment.where(patient_id: current_user.user_type_id)
+      @appointments = Appointment.where(patient_id: current_user.user_type_id).joins(:schedule).order('schedules.date ASC')
     elsif current_user.user_type_type == "Doctor"
-      @appointments = Appointment.where(doctor_id: current_user.user_type_id)
+      @appointments = Appointment.where(doctor_id: current_user.user_type_id).joins(:schedule).order('schedules.date ASC')
+    elsif current_user.user_type_type == "Staff"
+      @appointments = Appointment.joins(:schedule).order('schedules.date ASC')
     end
   end
 
@@ -56,6 +58,14 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
+
+    respond_to do |format|
+      if Appointment.find(params[:id]).destroy
+        format.html { redirect_to appointments_path, notice: 'appointment was successfully destroyed.' }
+      else
+        format.html { redirect_to appointments_path, notice: 'Fail' }
+      end
+    end
   end
 
   def show

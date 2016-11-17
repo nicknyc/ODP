@@ -24,23 +24,22 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-
-    if params[:Role] == 'Admin'
+    if params[:Role] == 'admin'
       @user.user_type = Admin.create()
       role_num = 1
-    elsif params[:Role] == 'Patient'
+    elsif params[:Role] == 'patient'
       @user.user_type = Patient.new(bloodType: params[:bloodType])
       role_num = 2
-    elsif params[:Role] == 'Staff'
+    elsif params[:Role] == 'staff'
       @user.user_type = Staff.new()
       role_num = 3
-    elsif params[:Role] == 'Doctor'
+    elsif params[:Role] == 'doctor'
       @user.user_type = Doctor.new()
       role_num = 4
-    elsif params[:Role] == 'Nurse'
+    elsif params[:Role] == 'nurse'
       @user.user_type = Nurse.new()
       role_num = 5
-    else  params[:Role] == 'Pharmacist'
+    else  params[:Role] == 'pharmacist'
       @user.user_type = Pharmacist.new()
       role_num = 6
     end
