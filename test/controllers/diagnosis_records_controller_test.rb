@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DiagnosisRecordControllerTest < ActionDispatch::IntegrationTest
+class DiagnosisRecordsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get diagnosis_record_index_url
     assert_response :success

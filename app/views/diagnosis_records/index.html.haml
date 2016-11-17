@@ -1,0 +1,38 @@
+%h1 DiagnosisRecord#index
+%p Find me in app/views/diagnosis_record/index.html.haml
+= flash[:notice]
+%table
+  %thead
+    %tr
+      %th ลำดับ
+      %th วันที่
+      %th ช่วงเวลา
+      %th หมอ
+      %th คนไข้
+      %th สถานะ
+      %th สถานะการบันทึก
+      %th
+
+  %tbody
+    - @appointments.each_with_index do |a,i|
+      %tr
+        %td= i+1
+        %td= a.schedule.date
+        %td
+          -if a.schedule.shift == 0
+            = "เช้า"
+          -else
+            = "บ่าย"
+          %th= a.doctor.user.first_name + " " + a.doctor.user.last_name
+          %th= a.patient.user.first_name + " " + a.patient.user.last_name
+        %td= a.status
+        %td= a.physical_record.weight.nil? ? "ยังไม่ได้บันทึก" : "บันทึกแล้ว"
+        %td
+          =link_to "ดูการนัด",a
+          -if a.physical_record.weight.nil?
+          -else
+            =link_to "ดูบันทึก",a.physical_record
+          -if a.status == 'Done'
+            =link_to "แก้ไขการตรวจ"
+          -else
+            =link_to "เริ่มการตรวจ", new_diagnosis_record_path(id: a.id) , method: :get

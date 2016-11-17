@@ -34,7 +34,7 @@
       = @appointment.physical_record.heartRate
   .div
     ใบสั่งยา:
-    -if @appointment.presciption == []
+    -if @appointment.prescription == []
       = "none"
     -else
       %table
@@ -43,7 +43,7 @@
             %th ชื่อยา
             %th จำนวน
         %tbody
-          - @appointment.presciption.each do |a|
+          - @appointment.prescription.each do |a|
             %tr
               %td= a["med"]
               %td= a["no"]
