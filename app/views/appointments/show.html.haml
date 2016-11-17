@@ -1,2 +1,49 @@
 %h1 Appointment#show
-%p Find me in app/views/appointment/show.html.haml
+.div
+  ชื่อผู้ป่วย:
+  = @appointment.patient.user.first_name + " " + @appointment.patient.user.last_name
+.div
+  ชื่อหมอ:
+  = @appointment.doctor.user.first_name + " " + @appointment.doctor.user.last_name
+.div
+  วันที่:
+  = @appointment.schedule.date
+.div
+  เวลา:
+  = @appointment.schedule.shift == 0 ? "เช้า" : "เย็น"
+.div
+  อาการ:
+  = @appointment.symptom
+-if @appointment.status == 'Done'
+  .div
+    คำวินิจฉัย:
+    = @appointment.diagnosis_record
+  .div
+    สภาพร่างกาย:
+    .div
+      น้ำหนัก
+      = @appointment.physical_record.weight
+    .div
+      ส่วนสูง
+      = @appointment.physical_record.height
+    .div
+      ความดัน
+      = @appointment.physical_record.bloodPressure
+    .div
+      อัตราการเต้นของหัวใจ
+      = @appointment.physical_record.heartRate
+  .div
+    ใบสั่งยา:
+    -if @appointment.presciption == []
+      = "none"
+    -else
+      %table
+        %thead
+          %tr
+            %th ชื่อยา
+            %th จำนวน
+        %tbody
+          - @appointment.presciption.each do |a|
+            %tr
+              %td= a["med"]
+              %td= a["no"]

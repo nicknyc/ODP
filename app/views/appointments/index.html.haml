@@ -32,4 +32,5 @@
           -elsif current_user.user_type_type == "Doctor"
             = a.patient.user.first_name + " " + a.patient.user.last_name
         %td= a.status
-        %td ดู , ลบ
+        %td
+          =link_to "ดู",a

@@ -47,7 +47,7 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @appointment = Appointment.find(params[:id])
   end
 
   def get_avail
