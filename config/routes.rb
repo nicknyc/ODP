@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
 
   get 'destroy_appt/:id' => 'appointments#destroy'
+  get 'patient/list' => 'users#patient_list'
   resources :schedules
   resources :appointments
   resources :physical_records

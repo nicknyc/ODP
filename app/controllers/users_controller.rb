@@ -88,6 +88,19 @@ class UsersController < ApplicationController
 
   end
 
+  def patient_list
+    if params[:sort].blank?
+      @patients = Patient.joins(:appointments => :schedule).where('schedules.date > ?',Date.today)
+    else
+      if params[:sort] == '1'
+        @patients = Patient.all
+      else
+        @patients = Patient.joins(:appointments => :schedule).where('schedules.date > ?',Date.today)
+      end
+    end
+
+  end
+
   def ban
     @user = User.find(params[:id])
     @user.ban = true

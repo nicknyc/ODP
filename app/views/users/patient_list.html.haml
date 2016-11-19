@@ -1,0 +1,21 @@
+= form_tag patient_list_path, method: 'get' do
+  = select_tag 'sort', options_for_select({"วันนี้"=>0,'ทุกช่วงเวลา'=>1}, params[:sort].blank?||params[:sort]=="0" ? 0:1)
+  = submit_tag 'ค้นหา'
+
+%table
+  %thead
+    %tr
+      %th ID
+      %th ชื่อ
+      %th นามสกุล
+      %th
+
+
+  %tbody
+    - @patients.each do |u|
+      %tr
+        %td= u.user.ext_id
+        %td= u.user.first_name
+        %td= u.user.last_name
+        %td
+          =link_to "ดู",u.user
