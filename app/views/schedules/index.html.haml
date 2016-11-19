@@ -1,12 +1,15 @@
-= flash[:notice]
 %h1 Schedule
-= link_to 'Add Schedule', new_schedule_path c
+-if current_user.user_type_type == 'Doctor'
+  = link_to 'เพิ่มตารางเวลา', new_schedule_path(id: current_user.id) , method: :get
+-else
+  = link_to 'เพิ่มตารางเวลา', new_schedule_path , method: :get
 
 %table{:border => "1"}
   %thead
     %tr
-      %th id
-      %th ชื่อหมอ
+      -if current_user.user_type_type != "Doctor"
+        %th id
+        %th ชื่อหมอ
       %th ตารางเวลา
       %th
 
@@ -15,8 +18,9 @@
     - @users.each do |user|
       -schedule = user.user_type.schedules.order('date ASC','shift ASC')
       %tr
-        %td= user.ext_id
-        %td= user.first_name + " " + user.last_name
+        -if current_user.user_type_type != "Doctor"
+          %td= user.ext_id
+          %td= user.first_name + " " + user.last_name
         %td
           %table{:border => "1"}
             %thead
