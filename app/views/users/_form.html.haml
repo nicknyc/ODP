@@ -1,4 +1,4 @@
-%h2= @user.persisted? ? "Edit User" : "Add User"
+%h2= @user.persisted? ? "แก้ไขผู้ใช้" : "เพิ่มผู้ใช้"
 = simple_form_for(@user) do |f|
   = f.error_notification
   .form-inputs
@@ -15,30 +15,29 @@
     %label
       - if !@user.persisted?
         .role#patient
-          กรุ๊ปเลือด
+          =label_tag 'กรุ๊ปเลือด'
           = text_field_tag 'bloodType'
-          .allergy
-            ประวัติแพ้ยา
-            = text_field_tag 'allergyRecordList'
+          =label_tag 'ประวัติแพ้ยา'
+          = text_field_tag 'allergyRecordList'
         .role#doctor
-          แผนก
+          =label_tag 'แผนก'
           = text_field_tag 'proficiency'
       -elsif @user.persisted?&&@user.user_type_type == 'Patient'
-        กรุ๊ปเลือด
+        =label_tag 'กรุ๊ปเลือด'
         = text_field_tag 'bloodType' , @user.user_type.bloodType
-        ประวัตแพ้ยา
-        = text_field_tag 'allergyRecordList' , @user.user_type.allergyRecordList
+        =label_tag 'ประวัติแพ้ยา'
+        = text_field_tag 'allergyRecordList', @user.user_type.allergyRecordList
       -elsif @user.persisted?&&@user.user_type_type == 'Doctor'
-        แผนก
+        =label_tag 'แผนก'
         = text_field_tag 'proficiency' ,@user.user_type.proficiency
   .form-actions
-    - btn_label = @user.persisted? ? "Update" : "Create"
-    = f.button :submit, btn_label
+    - btn_label = @user.persisted? ? "ยืนยันการแก้ไข" : "ยืนยันการสร้าง"
+    = f.button :submit, btn_label ,class: "btn btn-primary"
+
+
 
   -if @user.persisted?
     -if @user.ban?
-      =link_to 'unban' , '/unban_user/' + @user.id.to_s , :data => { :confirm => 'ยืนยันการคืนสถานะผู้ใช้?'}
+      =link_to 'unban' , '/unban_user/' + @user.id.to_s , :data => { :confirm => 'ยืนยันการคืนสถานะผู้ใช้?'} , class: "btn btn-info"
     -else
-      =link_to 'ban' , '/ban_user/' + @user.id.to_s , :data => { :confirm => 'ยืนยันการระงับผู้ใช้?'}
-
-=link_to 'กลับ' , users_path
+      =link_to 'ban' , '/ban_user/' + @user.id.to_s , :data => { :confirm => 'ยืนยันการระงับผู้ใช้?'} , class: "btn btn-danger"

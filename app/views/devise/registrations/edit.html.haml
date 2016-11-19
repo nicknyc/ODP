@@ -1,9 +1,9 @@
 %h2
-  Edit #{resource_name.to_s.humanize}
+  แก้ไขประวัติ
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :email, required: true, autofocus: true
+    = f.input :email, required: true, autofocus: true, label: "อีเมลล์"
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       %p
         Currently waiting confirmation for: #{resource.unconfirmed_email}
@@ -13,22 +13,18 @@
     = f.input :last_name , required: true, label: "นามสกุล"
     = f.input :sex, collection: [ 'M', 'F'], as: :radio_buttons, label_method: :last, value_method: :first, checked: 'M', item_wrapper_class: 'inline' , label: "เพศ"
     -if resource.user_type_type == 'Patient'
-      .blood
-        กรุ๊ปเลือด
-        = text_field_tag 'bloodType' , @user.user_type.bloodType
-      .allergy
-        ประวัติแพ้ยา
-        = text_field_tag 'allergyRecordList', @user.user_type.allergyRecordList
+      =label_tag 'กรุ๊ปเลือด'
+      = text_field_tag 'bloodType' , @user.user_type.bloodType
+      =label_tag 'ประวัติแพ้ยา'
+      = text_field_tag 'allergyRecordList', @user.user_type.allergyRecordList
     -if resource.user_type_type == 'Doctor'
-      แผนก
+      =label_tag 'แผนก'
       = text_field_tag 'proficiency' , @user.user_type.proficiency
     = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
-    = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
-    = f.input :password_confirmation, required: false
-    = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
+    = f.input :password, autocomplete: "off", hint: "ปล่อยว่างไว้หากไม่ต้องการเปลี่ยนแปลง", required: false ,label: 'รหัสผ่าน'
+    = f.input :password_confirmation, required: false ,label: 'ยืนยันรหัสผ่าน'
+    = f.input :current_password, hint: "กรุณากรอกรหัสผ่านเดิมเพื่อแก้ไข", required: true ,label: 'รหัสผ่านปัจจุบัน'
   .form-actions
-    = f.button :submit, "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+    %br
+
+    = f.button :submit, "ยืนยันการแก้ไข" ,class: 'btn btn-primary'
