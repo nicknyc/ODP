@@ -1,7 +1,7 @@
 %h1 Schedule#edit
-= "for Dr." + @user.first_name + " " + @user.last_name
+= "สำหรับ ดร." + @user.first_name + " " + @user.last_name
 .div
-  =link_to 'Add Schedule' , new_schedule_path(id: @user.id) , method: :get
+  =link_to 'เพิ่มตาราง' , new_schedule_path(id: @user.id) , method: :get
 %table{:border => "1"}
   %thead
     %tr
@@ -23,3 +23,5 @@
         %td= s.date
         %td= s.appointment
         %td= button_tag "ลบ" , class: 'remove' , id: s.id
+
+=link_to 'กลับ' , schedules_path

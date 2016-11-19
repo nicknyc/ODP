@@ -19,3 +19,5 @@
 -# =button_tag "เสร็จสิ้นการจ่ายยา" ,class: 'pres_done' , id: @appointment.id
 .pres_done
   =link_to "เสร็จสิ้นการจ่ายยา" , '/pres_done?id=' + @appointment.id.to_s
+.back
+=link_to 'กลับ' , :back
