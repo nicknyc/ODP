@@ -1,10 +1,14 @@
 class SchedulesController < ApplicationController
   def index
+<<<<<<< HEAD
     if current_user.user_type_type == 'Doctor'
       @users = User.where(first_name: current_user.first_name)
     else
       @users = User.where("user_type_type = 'Doctor' && ban = false").order(:first_name)
     end
+=======
+    @users = User.where("user_type_type = 'Doctor'").order(:first_name)
+>>>>>>> origin/benzbranch
   end
 
   def new
