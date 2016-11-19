@@ -48,11 +48,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        # Tell the UserMailer to send a welcome email after save
+        UserMailer.welcome_email(@user).deliver_later
         year_id = Time.now.year % 100
         type_id = sprintf '%03d', @user.user_type_id
         user_id = sprintf '%03d', @user.id
         ext_id = year_id.to_s + role_num.to_s + type_id + user_id
         @user.ext_id = ext_id.to_i
+        
 
         @user.save
         format.html { redirect_to users_path, notice: 'User was successfully created.' }
@@ -109,12 +112,12 @@ class UsersController < ApplicationController
   end
 
   def autoname
-    @users = User.order(:first_name).where(user_type_type: 'Doctor').where('first_name like ? || last_name like ? || ext_id like ?',"%" +params[:term]+ "%","%" +params[:term]+ "%","%" +params[:term]+ "%")
+    @users = User.order(:first_name).where(user_type_type: 'Doctor').where('first_name like ? OR last_name like ? OR ext_id like ?',"%" +params[:term]+ "%","%" +params[:term]+ "%","%" +params[:term]+ "%")
     render json: @users.map{|u| {label: u.first_name + " " + u.last_name ,value: u.user_type_id}}
   end
 
   def autopat
-    @users = User.order(:first_name).where(user_type_type: 'Patient').where('first_name like ? || last_name like ? || ext_id like ?',"%" +params[:term]+ "%","%" +params[:term]+ "%","%" +params[:term]+ "%")
+    @users = User.order(:first_name).where(user_type_type: 'Patient').where('first_name like ? OR last_name like ? OR ext_id like ?',"%" +params[:term]+ "%","%" +params[:term]+ "%","%" +params[:term]+ "%")
     render json: @users.map{|u| {label: u.first_name + " " + u.last_name ,value: u.user_type_id}}
   end
 

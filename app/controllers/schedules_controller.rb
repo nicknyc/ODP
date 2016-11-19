@@ -1,6 +1,6 @@
 class SchedulesController < ApplicationController
   def index
-    @users = User.where("user_type_type = 'Doctor' && ban = false").order(:first_name)
+    @users = User.where("user_type_type = 'Doctor'").order(:first_name)
   end
 
   def new
