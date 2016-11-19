@@ -43,6 +43,7 @@ GEM
       execjs
     bcrypt (3.1.11)
     bcrypt (3.1.11-x64-mingw32)
+    bcrypt (3.1.11-x86-mingw32)
     bootstrap (4.0.0.alpha5)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
@@ -121,11 +122,14 @@ GEM
     multi_json (1.12.1)
     mysql2 (0.4.5)
     mysql2 (0.4.5-x64-mingw32)
+    mysql2 (0.4.5-x86-mingw32)
     nested_form (0.3.2)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     nokogiri (1.6.8.1-x64-mingw32)
+      mini_portile2 (~> 2.1.0)
+    nokogiri (1.6.8.1-x86-mingw32)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     puma (3.6.0)
@@ -224,6 +228,7 @@ GEM
 PLATFORMS
   ruby
   x64-mingw32
+  x86-mingw32
 
 DEPENDENCIES
   bootstrap
