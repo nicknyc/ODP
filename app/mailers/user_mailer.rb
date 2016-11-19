@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @url  = 'http://localhost:3000/users/sign_in'
     mail(
-      :subject => "test",
+      :subject => "WELCOME FROM ODP!",
       :to => user.email,
 			:openssl_verify_mode => 'none'
     )
@@ -17,7 +17,7 @@ class UserMailer < ApplicationMailer
     @appointment = appointment
     @schedule = appointment.schedule_id
     @doctor = appointment.doctor_id
-    @url  = 'http://localhost:3000/users/sign_in'
-    mail(to: @user.email, subject: 'Appointment Confirmation Email from ODP')
+    @url  = 'http://localhost:3000/confirm_appointment?id='+appointment.id.to_s
+    mail(to: user.email, subject: 'Appointment Confirmation Email from ODP')
   end
 end

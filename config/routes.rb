@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'destroy_appt/:id' => 'appointments#destroy'
   get 'patient/list' => 'users#patient_list'
   get 'patient/search' => 'users#patient_search'
+  get '/confirm_appointment' => 'appointments#confirm_appointment'
   resources :schedules
   resources :appointments
   resources :physical_records

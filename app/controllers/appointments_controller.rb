@@ -38,6 +38,7 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       if x&&@appointment.save
+        UserMailer.create_appointment_email(Patient.find(params[:appointment][:patient_id]).user,@appointment).deliver_now
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
         format.html { redirect_to appointments_path, notice: 'Fail' }
@@ -124,6 +125,18 @@ class AppointmentsController < ApplicationController
 
   def show
     @appointment = Appointment.find(params[:id])
+  end
+
+  def confirm_appointment
+    @appointment = Appointment.find(params[:id])
+    @appointment.status = 'Confirmed'
+    @appointment.save
+    @schedule = @appointment.schedule
+    @schedule.appointment = @schedule.appointment + 1
+    @schedule.save
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'ยืนยันการนัดแล้ว' }
+    end
   end
 
   def get_avail
