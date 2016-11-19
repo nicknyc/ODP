@@ -32,6 +32,60 @@
     เบอร์โทรศัพท์
   .div
     = @user.phone_number
+  -if @user.user_type_type == 'Patient'
+    .div
+      กรุ๊ปเลือด
+      = @user.user_type.bloodType
+    .div
+      ประวัติแพ้ยา
+      = @user.user_type.allergyRecordList
+    .div
+      ประวัติการรักษา
+      %table
+        %thead
+          %tr
+            %th ลำดับ
+            %th วันที่
+            %th ช่วงเวลา
+            %th หมอ
+            %th แผนก
+            %th สถานะ
+            %th
 
-  = link_to 'แก้ไข', edit_user_path(@user), class: 'kn-button__primary'
-  = link_to 'กลับ', users_path
+        %tbody
+          - @user.user_type.appointments.each_with_index do |a,i|
+            %tr
+              %td= i+1
+              %td= a.schedule.date
+              %td
+                -if a.schedule.shift == 0
+                  = "เช้า"
+                -else
+                  = "บ่าย"
+              %th= link_to a.doctor.user.first_name + " " + a.doctor.user.last_name , a.doctor.user
+              %th= a.doctor.proficiency
+              %td= a.status
+              %td
+                =link_to "ดู",a
+                -if a.status != "Done"
+                  =link_to "เลื่อน",edit_appointment_path(a)
+                  =link_to "ยกเลิก", '/destroy_appt/' + a.id.to_s , :data => { :confirm => 'ยืนยันการยกเลิก?'}
+  -if @user.user_type_type == 'Doctor'
+    .div
+      แผนก
+      = @user.user_type.proficiency
+
+
+
+  -if current_user.user_type_type == 'Admin'
+    = link_to 'แก้ไข', edit_user_path(@user), class: 'kn-button__primary'
+    -if @user.user_type_type == 'Doctor'
+      = link_to 'กลับ', :back
+    -else
+      = link_to 'กลับ', users_path
+  -else
+    = link_to 'แก้ไข', edit_user_registration_path(@user)
+    -if @user.user_type_type == 'Doctor'
+      = link_to 'กลับ', :back
+    -else
+      = link_to 'กลับ', root_path
