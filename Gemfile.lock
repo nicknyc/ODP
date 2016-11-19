@@ -99,6 +99,7 @@ GEM
       turbolinks
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
+    json (2.0.2)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -124,6 +125,12 @@ GEM
     nokogiri (1.6.8.1-x64-mingw32)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
+    postmark (1.9.1)
+      json
+      rake
+    postmark-rails (0.14.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.9.0)
     puma (3.6.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -233,6 +240,7 @@ DEPENDENCIES
   jquery-turbolinks
   momentjs-rails
   mysql2 (>= 0.3.18, < 0.5)
+  postmark-rails
   puma (~> 3.0)
   pundit
   rails (~> 5.0.0)
