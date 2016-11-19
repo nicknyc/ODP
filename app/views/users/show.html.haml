@@ -32,6 +32,22 @@
     เบอร์โทรศัพท์
   .div
     = @user.phone_number
+  -if @user.user_type_type == 'Patient'
+    .div
+      กรุ๊ปเลือด
+      = @user.user_type.bloodType
+    .div
+      ประวัติแพ้ยา
+      = @user.user_type.allergyRecordList
+  -if @user.user_type_type == 'Doctor'
+    .div
+      แผนก
+      = @user.user_type.proficiency
 
-  = link_to 'แก้ไข', edit_user_path(@user), class: 'kn-button__primary'
-  = link_to 'กลับ', users_path
+
+  -if current_user.user_type_type == 'Admin'
+    = link_to 'แก้ไข', edit_user_path(@user), class: 'kn-button__primary'
+    = link_to 'กลับ', users_path
+  -else
+  = link_to 'แก้ไข', edit_user_registration_path(@user)
+  = link_to 'กลับ', root_path
