@@ -1,0 +1,26 @@
+= form_tag patient_search_path, :method => :get do
+  = text_field_tag :search, params[:search], placeholder: 'ค้นหาชื่อคนไข้'
+  = submit_tag 'ค้นหา'
+  -if @patients.count < 1 && !params[:search].blank?
+    .patient
+      ไม่ค้นพบคนไข้
+  -elsif @patients.count >= 1 && !params[:search].blank?
+    .patient
+      %table
+        %thead
+          %tr
+            %th ID
+            %th ชื่อ
+            %th นามสกุล
+            %th
+
+
+        %tbody
+          - @patients.each do |u|
+            %tr
+              %td= u.ext_id
+              %td= u.first_name
+              %td= u.last_name
+              %td
+                =link_to "ดู",u
+    

@@ -101,6 +101,11 @@ class UsersController < ApplicationController
 
   end
 
+  def patient_search
+    search_query = params[:search].nil? ? "": params[:search]
+    @patients = User.where(user_type_type: 'Patient').where('first_name LIKE ? OR last_name LIKE ?',"%"+search_query+"%","%"+search_query+"%")
+  end
+
   def ban
     @user = User.find(params[:id])
     @user.ban = true
