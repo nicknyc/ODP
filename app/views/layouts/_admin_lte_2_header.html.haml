@@ -1,0 +1,36 @@
+/ Main Header
+%header.main-header
+  / Logo
+  %a.logo{:href => "/"}
+    / mini logo for sidebar mini 50x50 pixels
+    %span.logo-mini
+      =image_tag("logo.png")
+    / logo for regular state and mobile devices
+    %span.logo-lg
+      =image_tag("logo.png")
+  / Header Navbar
+  %nav.navbar.navbar-static-top{:role => "navigation"}
+    / Sidebar toggle button
+    %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+      %span.sr-only Toggle navigation
+    / Navbar Right Menu
+    .navbar-custom-menu
+      %ul.nav.navbar-nav
+        / Messages: style can be found in dropdown.less
+        / User Account Menu
+        %li.dropdown.user.user-menu
+          / Menu Toggle Button
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            / The user image in the navbar
+            -if !current_user.nil?
+              %span.hidden-xs=current_user.first_name + " " + current_user.last_name
+          -if !current_user.nil?
+            %ul.dropdown-menu
+              / The user image in the menu
+              / Menu Body
+              / Menu Footer
+              %li.user-footer
+                .pull-left
+                  %a.btn.btn-default.btn-flat{:href => "#{user_path(current_user)}", method: :get} Profile
+                .pull-right
+                  %a=link_to "Log Out", destroy_user_session_path, :method=>'delete' ,class: 'btn btn-default btn-flat'

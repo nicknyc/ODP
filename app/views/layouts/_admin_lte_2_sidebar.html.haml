@@ -1,0 +1,150 @@
+/ Left side column. contains the logo and sidebar
+%aside.main-sidebar
+  / sidebar: style can be found in sidebar.less
+  %section.sidebar
+    / Sidebar user panel (optional)
+    .user-panel
+    / search form (Optional)
+    / /.search form
+    / Sidebar Menu
+    %ul.sidebar-menu
+      -if !current_user.nil?
+        %li.header= current_user.user_type_type
+      / Optionally, you can add icons to the links
+      %li{class: current_page?(root_path) && 'active'}
+        %a{:href => "#{root_path}", method: :get}
+          %i.fa.fa-home
+          %span โฮมเพจ
+      -if !current_user.nil?
+        %li.treeview
+          %a
+            %i.fa.fa-user
+            %span ข้อมูลส่วนตัว
+            %i.fa.fa-angle-left.pull-right
+          %ul.treeview-menu
+            %li{class: current_page?(user_path(current_user)) && 'active'}
+              %a{:href => "#{user_path(current_user)}", method: :get} ดูข้อมูลส่วนตัว
+            %li{class: current_page?(edit_user_registration_path) && 'active'}
+              %a{:href => "#{edit_user_registration_path}", method: :get} แก้ไขข้อมูลส่วนตัว
+        -if current_user.user_type_type == 'Admin'
+          %li.treeview
+            %a
+              %i.fa.fa-users
+              %span จัดการผู้ใช้
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li{class: current_page?(new_user_path) && 'active'}
+                %a{:href => "#{new_user_path}", method: :get} สร้างผู้ใช้ใหม่
+              %li{class: current_page?(users_path) && 'active'}
+                %a{:href => "#{users_path}", method: :get} รายชื่อผู้ใช้
+        -if current_user.user_type_type == 'Patient'
+          %li.treeview
+            %a
+              %i.fa.fa-plus-square
+              %span การนัดหมาย
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li{class: current_page?(user_path(current_user)) && 'active'}
+                %a{:href => "#{new_appointment_path}", method: :get} สร้างการนัดหมายใหม่
+              %li{class: current_page?(edit_user_registration_path) && 'active'}
+                %a{:href => "#{appointments_path}", method: :get} ดูการนัดหมาย
+        -if current_user.user_type_type == 'Doctor'
+          %li.treeview
+            %li{class: current_page?(diagnosis_records_path) && 'active'}
+              %a{:href => "#{diagnosis_records_path}", method: :get}
+                %i.fa.fa-stethoscope
+                %span การวินิจฉัย
+          %li.treeview
+            %a
+              %i.fa.fa-plus-square
+              %span การนัดหมาย
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li
+                %a{:href => "#{new_appointment_path}", method: :get} สร้างการนัดหมายใหม่
+              %li
+                %a{:href => "#{appointments_path}", method: :get} ดูการนัดหมาย
+          %li.treeview
+            %a
+              %i.fa.fa-clock-o
+              %span ตารางเวลา
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li
+                %a{:href => "#{new_schedule_path}", method: :get} เพิ่มตารางเวลา
+              %li
+                %a{:href => "#{schedules_path}", method: :get} ตารางเวลา
+              %li
+                %a{:href => "#{edit_schedule_path(current_user)}", method: :get} แก้ไขตารางเวลา
+          %li.treeview
+            %a
+              %i.fa.fa-wheelchair
+              %span ผู้ป่วย
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li
+                %a{:href => "/patient/list", method: :get} รายชื่อผู้ป่วย
+              %li
+                %a{:href => "/patient/search", method: :get} ค้นหาผู้ป่วย
+        -if current_user.user_type_type == 'Staff'
+          %li.treeview
+            %a
+              %i.fa.fa-plus-square
+              %span การนัดหมาย
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li
+                %a{:href => "#{new_appointment_path}", method: :get} สร้างการนัดหมายใหม่
+              %li
+                %a{:href => "#{appointments_path}", method: :get} ดูการนัดหมาย
+          %li.treeview
+            %a
+              %i.fa.fa-clock-o
+              %span ตารางเวลา
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li
+                %a{:href => "#{new_schedule_path}", method: :get} เพิ่มตารางเวลา
+              %li
+                %a{:href => "#{schedules_path}", method: :get} ตารางเวลา
+              %li
+                %a{:href => "#{edit_schedule_path(current_user)}", method: :get} แก้ไขตารางเวลา
+          %li.treeview
+            %a
+              %i.fa.fa-wheelchair
+              %span ผู้ป่วย
+              %i.fa.fa-angle-left.pull-right
+            %ul.treeview-menu
+              %li
+                %a{:href => "#{new_user_registration_path}", method: :get} ลงทะเบียนผู้ป่วย
+              %li
+                %a{:href => "/patient/list", method: :get} รายชื่อผู้ป่วย
+              %li
+                %a{:href => "/patient/search", method: :get} ค้นหาผู้ป่วย
+        -if current_user.user_type_type == 'Nurse'
+          %li{class: current_page?(physical_records_path) && 'active'}
+            %a{:href => "#{physical_records_path}", method: :get}
+              %i.fa.fa-heart-o
+              %span บันทึกข้อมูลผู้ป่วย
+        -if current_user.user_type_type == 'Pharmacist'
+          %li{class: current_page?(prescriptions_path) && 'active'}
+            %a{:href => "#{prescriptions_path}", method: :get}
+              %i.fa.fa-ambulance
+              %span รายการใบสั่งยา
+
+      -if current_user.nil?
+        %li{class: current_page?(new_user_session_path) && 'active'}
+          %a{:href => "#{new_user_session_path}", method: :get}
+            %i.fa.fa-sign-in
+            %span เข้าสู่ระบบ
+        %li{class: current_page?(new_user_registration_path) && 'active'}
+          %a{:href => "#{new_user_registration_path}", method: :get}
+            %i.fa.fa-pencil
+            %span ลงทะเบียน
+      -if !current_user.nil?
+        %li
+          %a{"data-method" => "delete",:href => "#{destroy_user_session_path}"}
+            %i.fa.fa-sign-out
+            %span ออกจากระบบ
+    / /.sidebar-menu
+  / /.sidebar

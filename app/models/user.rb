@@ -16,6 +16,14 @@ class User < ApplicationRecord
     @login || self.ext_id || self.email || self.national_id
   end
 
+  def active_for_authentication?
+    super && !self.ban?
+  end
+
+  def inactive_message
+      !self.ban? ? super : :ban
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)

@@ -20,13 +20,14 @@ Rails.application.routes.draw do
   resources :diagnosis_records
   resources :prescriptions
   scope "/admin" do
-    resources :users, only: [:index,:new]
+    resources :users
   end
-  devise_for :users, controllers: { registrations: "registrations" }
-  resources :users, only: [:show,:edit]
+  devise_for :users, controllers: { registrations: "registrations" ,:sessions => "sessions" }
+  resources :users, only: [:show]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "home#index"
+  root :to => 'home#index'
+
 
 
 

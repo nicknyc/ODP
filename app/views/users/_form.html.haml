@@ -9,11 +9,8 @@
     = f.input :last_name , required: true, label: "นามสกุล"
     = f.input :sex, collection: [ 'M', 'F'], as: :radio_buttons, label_method: :last, value_method: :first, checked: 'M', item_wrapper_class: 'inline' , label: "เพศ"
     = f.input :email , required: true, label: "อีเมลล์"
-    -if !@user.persisted? || @user == current_user
-      = f.input :password , required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) , label: "รหัสผ่าน"
-      = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
-    -if @user.persisted? && @user == current_user
-      = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
+    = f.input :password , required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) , label: "รหัสผ่าน"
+    = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
     = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
     %label
       - if !@user.persisted?
