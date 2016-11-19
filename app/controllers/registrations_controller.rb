@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
    build_resource(user_params)
 
    #mine
-   resource.user_type = Patient.create(bloodType: params[:bloodType])
+   resource.user_type = Patient.create(bloodType: params[:bloodType],allergyRecordList: params[:allergyRecordList])
    #
 
 
@@ -56,7 +56,10 @@ class RegistrationsController < Devise::RegistrationsController
 
 
     if current_user.user_type_type == "Patient"
-      resource.user_type.update(bloodType: params[:bloodType])
+      resource.user_type.update(bloodType: params[:bloodType],allergyRecordList: params[:allergyRecordList])
+    end
+    if current_user.user_type_type == "Doctor"
+      resource.user_type.update(proficiency: params[:proficiency])
     end
 
 

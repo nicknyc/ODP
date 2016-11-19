@@ -28,13 +28,13 @@ class UsersController < ApplicationController
       @user.user_type = Admin.create()
       role_num = 1
     elsif params[:Role] == 'patient'
-      @user.user_type = Patient.new(bloodType: params[:bloodType])
+      @user.user_type = Patient.new(bloodType: params[:bloodType],allergyRecordList: params[:allergyRecordList])
       role_num = 2
     elsif params[:Role] == 'staff'
       @user.user_type = Staff.new()
       role_num = 3
     elsif params[:Role] == 'doctor'
-      @user.user_type = Doctor.new()
+      @user.user_type = Doctor.new(proficiency: params[:proficiency])
       role_num = 4
     elsif params[:Role] == 'nurse'
       @user.user_type = Nurse.new()
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     end
 
     if @user.user_type_type == 'Patient'
-      @user.user_type.update(bloodType: params[:bloodType])
+      @user.user_type.update(bloodType: params[:bloodType],allergyRecordList: params[:allergyRecordList])
     end
 
     if @user.user_type_type == 'Doctor'
@@ -86,6 +86,24 @@ class UsersController < ApplicationController
       end
     end
 
+  end
+
+  def patient_list
+    if params[:sort].blank?
+      @patients = Patient.joins(:appointments => :schedule).where('schedules.date > ?',Date.today)
+    else
+      if params[:sort] == '1'
+        @patients = Patient.all
+      else
+        @patients = Patient.joins(:appointments => :schedule).where('schedules.date > ?',Date.today)
+      end
+    end
+
+  end
+
+  def patient_search
+    search_query = params[:search].nil? ? "": params[:search]
+    @patients = User.where(user_type_type: 'Patient').where('first_name LIKE ? OR last_name LIKE ?',"%"+search_query+"%","%"+search_query+"%")
   end
 
   def ban
