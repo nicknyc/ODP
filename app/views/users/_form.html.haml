@@ -18,16 +18,21 @@
     %label
       - if !@user.persisted?
         .role#patient
-          bloodType
+          กรุ๊ปเลือด
           = text_field_tag 'bloodType'
+          .allergy
+            ประวัติแพ้ยา
+            = text_field_tag 'allergyRecordList'
         .role#doctor
-          proficiency
+          แผนก
           = text_field_tag 'proficiency'
       -elsif @user.persisted?&&@user.user_type_type == 'Patient'
-        bloodType
+        กรุ๊ปเลือด
         = text_field_tag 'bloodType' , @user.user_type.bloodType
+        ประวัตแพ้ยา
+        = text_field_tag 'allergyRecordList' , @user.user_type.allergyRecordList
       -elsif @user.persisted?&&@user.user_type_type == 'Doctor'
-        proficiency
+        แผนก
         = text_field_tag 'proficiency' ,@user.user_type.proficiency
   .form-actions
     - btn_label = @user.persisted? ? "Update" : "Create"

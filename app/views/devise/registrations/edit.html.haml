@@ -20,7 +20,7 @@
         ประวัติแพ้ยา
         = text_field_tag 'allergyRecordList', @user.user_type.allergyRecordList
     -if resource.user_type_type == 'Doctor'
-      proficiency
+      แผนก
       = text_field_tag 'proficiency' , @user.user_type.proficiency
     = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
     = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
