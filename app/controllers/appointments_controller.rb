@@ -38,6 +38,8 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       if x&&@appointment.save
+        #CHECK HERE
+        UserMailer.create_appointment_email(Patient.find(params[:appointment][:patient_id]).user, @appointment)
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
         format.html { redirect_to appointments_path, notice: 'Fail' }
