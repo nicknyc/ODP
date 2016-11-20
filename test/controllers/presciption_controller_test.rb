@@ -1,24 +1,33 @@
 require 'test_helper'
 
-class prescriptionControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get prescription_index_url
-    assert_response :success
-  end
+class PrescriptionControllerTest < ActionDispatch::IntegrationTest
 
-  test "should get show" do
-    get prescription_show_url
+  test "should get index" do
+    get prescriptions_path
     assert_response :success
   end
 
   test "should get new" do
-    get prescription_new_url
+    get new_prescription_path
+    assert_response :success
+  end
+
+  test "should get show" do
+    get prescription_path(id: 1)
     assert_response :success
   end
 
   test "should get edit" do
-    get prescription_edit_url
+    patch prescription_path(id: 1)
     assert_response :success
+  end
+
+  test "remove_med" do
+    assert_response_to()
+  end
+
+  test "pres_done" do
+
   end
 
 end
