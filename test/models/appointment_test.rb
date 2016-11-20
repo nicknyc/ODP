@@ -9,6 +9,18 @@ class AppointmentTest < ActiveSupport::TestCase
     assert @appointment.valid?
   end
 
+  test "created_at shouldn't be null" do
+    assert_not_nil @appointment.created_at
+  end
+
+  test "updated_at shouldn't be null" do
+    assert_not_nil @appointment.updated_at
+  end
+
+  test "default status should be Pending" do
+    assert_equal(@appointment.status, "Pending")
+  end
+
   test "symptom shouldn't be nil" do
     @appointment.symptom = nil
     assert_not @appointment.valid?
