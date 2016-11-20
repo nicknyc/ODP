@@ -1,7 +1,5 @@
-%h1 prescription#index
-%p Find me in app/views/prescription/index.html.haml
-= flash[:notice]
-%table
+%h2 รายการใบสั่งยา
+%table.table
   %thead
     %tr
       %th ลำดับ
@@ -31,4 +29,5 @@
           -else
             =link_to "ดูบันทึก",a.physical_record
           =link_to "ดูผลการรักษา",diagnosis_record_path(id: a.id)
-          =link_to "ดูใบสั่งยา" , prescription_path(id: a.id) , method: :get
+          -if a.status == "Done"
+            =link_to "จ่ายยา" , prescription_path(id: a.id) , method: :get

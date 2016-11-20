@@ -5,7 +5,8 @@
     = f.input :height, required: true, label: "ส่วนสูง"
     = f.input :heartRate , required: true, label: "อัตราการเต้นของหัวใจ"
     .div
-      ความดันเลือด
+      = label_tag 'ความดันเลือด'
       = text_field_tag "SYS" , @physical_record.bloodPressure.nil? ? "" : @physical_record.bloodPressure.split("/").first  , placeholder: "ความดันหัวใจบีบ"
+      = "/"
       = text_field_tag "DIA" , @physical_record.bloodPressure.nil? ? "" : @physical_record.bloodPressure.split("/").last  , placeholder: "ความดันหัวใจคลาย"
-    = f.button :submit, "บันทึก"
+    = f.button :submit, "บันทึก" , class: "btn btn-primary"

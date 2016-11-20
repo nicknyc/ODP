@@ -1,9 +1,7 @@
 = flash[:notice]
-%h1 Appointment#index
-= current_user.first_name
-= link_to 'เพิ่มการนัดหมาย', new_appointment_path , method: :get
-
-%table
+%h2 รายการการนัดหมาย
+= link_to 'เพิ่มการนัดหมาย', new_appointment_path , method: :get , class: "btn btn-primary"
+%table.table
   %thead
     %tr
       %th ลำดับ

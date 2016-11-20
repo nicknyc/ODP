@@ -1,5 +1,4 @@
-%h1 DiagnosisRecord#new
-%p Find me in app/views/diagnosis_record/new.html.haml
+%h1 บันทึกการวินิจฉัย
 .div
   ชื่อคนไข้ :
   =@appointment.patient.user.first_name + " " + @appointment.patient.user.last_name
@@ -12,4 +11,4 @@
 .div
   =render "form"
 .back
-=link_to 'กลับ' , :back
+=link_to 'กลับ' , :back , class: "btn btn-success"

@@ -21,6 +21,7 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appt_params)
+
     x = true
     if params[:appointment_date] == "ไม่มีเวลาที่ใช้ได้"
       x = false
@@ -31,15 +32,25 @@ class AppointmentsController < ApplicationController
       shift = 1
       end
 
+
       date =  params[:appointment_date][6..15].to_date
-      @appointment.schedule_id = Schedule.where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+      if params[:pro_names].blank?
+        @appointment.schedule_id = Schedule.where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+      else
+        @appointment.doctor_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.doctor_id
+        @appointment.schedule_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.id
+      end
       @appointment.physical_record = PhysicalRecord.new()
     end
 
     respond_to do |format|
       if x&&@appointment.save
+<<<<<<< HEAD
         #CHECK HERE
         UserMailer.create_appointment_email(Patient.find(params[:appointment][:patient_id]).user, @appointment)
+=======
+        UserMailer.create_appointment_email(Patient.find(params[:appointment][:patient_id]).user,@appointment).deliver_now
+>>>>>>> origin/feature/front_end
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
         format.html { redirect_to appointments_path, notice: 'Fail' }
@@ -126,6 +137,18 @@ class AppointmentsController < ApplicationController
 
   def show
     @appointment = Appointment.find(params[:id])
+  end
+
+  def confirm_appointment
+    @appointment = Appointment.find(params[:id])
+    @appointment.status = 'Confirmed'
+    @appointment.save
+    @schedule = @appointment.schedule
+    @schedule.appointment = @schedule.appointment + 1
+    @schedule.save
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'ยืนยันการนัดแล้ว' }
+    end
   end
 
   def get_avail

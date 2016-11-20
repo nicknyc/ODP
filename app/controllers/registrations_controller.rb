@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
 
 
    if resource.save
-
+     UserMailer.welcome_email(resource).deliver_now
      year_id = Time.now.year % 100
      type_id = sprintf '%03d', resource.user_type_id
      user_id = sprintf '%03d', resource.id

@@ -13,12 +13,13 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require app
 //= require_tree .
 //= require moment
 //= require bootstrap
 //= require daterangepicker
 //= require jquery-ui/autocomplete
-//= require turbolinks
+
 var data
 
 function shiftDisplay(shift) {

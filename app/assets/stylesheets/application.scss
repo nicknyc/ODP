@@ -13,10 +13,24 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "AdminLTE/AdminLTE";
+@import "AdminLTE/skins/skin-blue";
+
  /*
 
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "AdminLTE/AdminLTE";
+@import "AdminLTE/skins/skin-blue";
+
 @import "bootstrap";
 @import "daterangepicker-bs3";
 
 .ui-helper-hidden-accessible { display:none; }
+
+label {
+display: block;
+}

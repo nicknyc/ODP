@@ -1,43 +1,43 @@
-%h1 Appointment#show
+%h1 ประวัติการนัดหมาย
 .div
-  ชื่อผู้ป่วย:
+  %b ชื่อผู้ป่วย :
   = @appointment.patient.user.first_name + " " + @appointment.patient.user.last_name
 .div
-  ชื่อหมอ:
+  %b ชื่อหมอ :
   = @appointment.doctor.user.first_name + " " + @appointment.doctor.user.last_name
 .div
-  วันที่:
+  %b วันที่ :
   = @appointment.schedule.date
 .div
-  เวลา:
+  %b เวลา:
   = @appointment.schedule.shift == 0 ? "เช้า" : "เย็น"
 .div
-  อาการ:
+  %b อาการ:
   = @appointment.symptom
 -if @appointment.status == 'Done'
   .div
-    คำวินิจฉัย:
+    %b คำวินิจฉัย:
     = @appointment.diagnosis_record
   .div
-    สภาพร่างกาย:
+    %b สภาพร่างกาย:
     .div
-      น้ำหนัก
+      %b น้ำหนัก
       = @appointment.physical_record.weight
     .div
-      ส่วนสูง
+      %b ส่วนสูง
       = @appointment.physical_record.height
     .div
-      ความดัน
+      %b ความดัน
       = @appointment.physical_record.bloodPressure
     .div
-      อัตราการเต้นของหัวใจ
+      %b อัตราการเต้นของหัวใจ
       = @appointment.physical_record.heartRate
   .div
-    ใบสั่งยา:
+    %b ใบสั่งยา:
     -if @appointment.prescription == []
       = "none"
     -else
-      %table
+      %table.table
         %thead
           %tr
             %th ชื่อยา
@@ -48,4 +48,4 @@
               %td= a["med"]
               %td= a["no"]
 .back
-=link_to 'กลับ' , :back
+=link_to 'กลับ' , :back ,class: "btn btn-success"

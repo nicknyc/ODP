@@ -1,4 +1,4 @@
-%h2 Sign up for คนไข้
+%h2 ลงทะเบียนผู้ป่วย
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = f.error_notification
   .form-inputs
@@ -10,13 +10,13 @@
     = f.input :password , required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) , label: "รหัสผ่าน"
     = f.input :password_confirmation , required: true, label: "ยืนยันรหัสผ่าน"
     = f.input :phone_number , required: true, label: "หมายเลขโทรศัพท์"
-    .blood
-      กรุ๊ปเลือด
-      = text_field_tag 'bloodType', nil, :required => true
-    .allergy
-      ประวัติแพ้ยา
-      = text_field_tag 'allergyRecordList'
+    =label_tag 'กรุ๊ปเลือด'
+    = text_field_tag 'bloodType', nil, :required => true
+    =label_tag 'ประวัติแพ้ยา'
+    = text_field_tag 'allergyRecordList'
 
   .form-actions
-    = f.button :submit, "Sign up"
-= render "devise/shared/links"
+    %br
+
+
+    = f.button :submit, "ยืนยันการลงทะเบียน" ,class: 'btn btn-primary'

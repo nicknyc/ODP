@@ -14,19 +14,21 @@ Rails.application.routes.draw do
   get 'destroy_appt/:id' => 'appointments#destroy'
   get 'patient/list' => 'users#patient_list'
   get 'patient/search' => 'users#patient_search'
+  get '/confirm_appointment' => 'appointments#confirm_appointment'
   resources :schedules
   resources :appointments
   resources :physical_records
   resources :diagnosis_records
   resources :prescriptions
   scope "/admin" do
-    resources :users, only: [:index,:new]
+    resources :users
   end
-  devise_for :users, controllers: { registrations: "registrations" }
-  resources :users, only: [:show,:edit]
+  devise_for :users, controllers: { registrations: "registrations" ,:sessions => "sessions" }
+  resources :users, only: [:show]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "home#index"
+  root :to => 'home#index'
+
 
 
 
