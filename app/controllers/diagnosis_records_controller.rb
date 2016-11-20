@@ -1,6 +1,6 @@
 class DiagnosisRecordsController < ApplicationController
   def index
-    @appointments = Appointment.joins(:schedule).where('appointments.status != "Pending" ').where('schedules.date = ?',Date.today).order('schedules.shift ASC')
+    @appointments = Appointment.joins(:schedule).where('appointments.status != "Pending" ').where('schedules.date >= ?',Date.today).order('schedules.shift ASC')
   end
 
   def new
