@@ -1,6 +1,6 @@
 class PhysicalRecordsController < ApplicationController
   def index
-    @appointments = Appointment.joins(:schedule).where('appointments.status != ?',"Done").where('schedules.date = ?',Date.today).order('schedules.shift ASC')
+    @appointments = Appointment.joins(:schedule).where('appointments.status = ?',"Confirmed").where('schedules.date = ?',Date.today).order('schedules.shift ASC')
   end
 
   def new

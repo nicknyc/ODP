@@ -1,8 +1,8 @@
-%h1 Schedule#edit
+%h1 แก้ไขตารางเวลา
 = "สำหรับ ดร." + @user.first_name + " " + @user.last_name
 .div
   =link_to 'เพิ่มตาราง' , new_schedule_path(id: @user.id) , method: :get
-%table{:border => "1"}
+%table.table
   %thead
     %tr
       %th กะ

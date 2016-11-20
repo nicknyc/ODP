@@ -1,4 +1,4 @@
-%h1 Schedule#new
+%h1 เพิ่มตารางเวลา
 
 
 = simple_form_for @schedule do |f|
@@ -33,8 +33,8 @@
     = "วันที่"
     = text_field_tag "Date4", nil ,class: 'daterange'
   .schedule-add
-    = button_tag "เพิ่มช่วง" , type: 'button', class: 'add-schedule btn'
+    = button_tag "เพิ่มช่วง" , type: 'button', class: 'add-schedule btn btn-info'
   .div-button
-  = f.button :submit, 'ยืนยัน'
+  = f.button :submit, 'ยืนยัน' , class: "btn btn-primary"
   .div
-    =link_to 'กลับ' , schedules_path
+    =link_to 'กลับ' , schedules_path ,class: "btn btn-success"

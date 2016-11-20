@@ -21,6 +21,7 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appt_params)
+
     x = true
     if params[:appointment_date] == "ไม่มีเวลาที่ใช้ได้"
       x = false
@@ -31,8 +32,14 @@ class AppointmentsController < ApplicationController
       shift = 1
       end
 
+
       date =  params[:appointment_date][6..15].to_date
-      @appointment.schedule_id = Schedule.where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+      if params[:pro_names].blank?
+        @appointment.schedule_id = Schedule.where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+      else
+        @appointment.doctor_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.doctor_id
+        @appointment.schedule_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.id
+      end
       @appointment.physical_record = PhysicalRecord.new()
     end
 

@@ -1,10 +1,10 @@
-%h1 Schedule
+%h1 ตารางเวลา
 -if current_user.user_type_type == 'Doctor'
-  = link_to 'เพิ่มตารางเวลา', new_schedule_path(id: current_user.id) , method: :get
+  = link_to 'เพิ่มตารางเวลา', new_schedule_path(id: current_user.id) , method: :get , class: "btn btn-primary"
 -else
-  = link_to 'เพิ่มตารางเวลา', new_schedule_path , method: :get
+  = link_to 'เพิ่มตารางเวลา', new_schedule_path , method: :get , class: "btn btn-primary"
 
-%table{:border => "1"}
+%table.table
   %thead
     %tr
       -if current_user.user_type_type != "Doctor"
@@ -22,7 +22,7 @@
           %td= user.ext_id
           %td= user.first_name + " " + user.last_name
         %td
-          %table{:border => "1"}
+          %table.table
             %thead
               %tr
                 %th กะ
@@ -42,4 +42,4 @@
                   %td= s.date
                   %td= s.appointment
         %td
-          = link_to 'แก้ไข', edit_schedule_path(user) , method: :get
+          = link_to 'แก้ไข', edit_schedule_path(user) , method: :get , class: "btn btn-warning"

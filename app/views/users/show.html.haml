@@ -58,7 +58,7 @@
     = @user.user_type.proficiency
 
 
-
+.div
   -if current_user.user_type_type == 'Admin'
     = link_to 'แก้ไข', edit_user_path(@user) ,class: 'btn btn-primary'
     -if @user.user_type_type == 'Doctor'
