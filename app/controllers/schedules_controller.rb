@@ -1,14 +1,10 @@
 class SchedulesController < ApplicationController
   def index
-<<<<<<< HEAD
     if current_user.user_type_type == 'Doctor'
       @users = User.where(first_name: current_user.first_name)
     else
-      @users = User.where("user_type_type = 'Doctor' && ban = false").order(:first_name)
+      @users = User.where("user_type_type = 'Doctor' AND ban = ?",false).order(:first_name)
     end
-=======
-    @users = User.where("user_type_type = 'Doctor'").order(:first_name)
->>>>>>> origin/benzbranch
   end
 
   def new
@@ -98,12 +94,12 @@ class SchedulesController < ApplicationController
   end
 
   def edit
-    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? && users.id = ?',false,params[:id]).order('date ASC','shift ASC')
+    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? AND users.id = ?',false,params[:id]).order('date ASC','shift ASC')
     @user = User.find(params[:id])
   end
 
   def show
-    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? && users.id = ?',false,params[:id]).order('date ASC','shift ASC')
+    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? AND users.id = ?',false,params[:id]).order('date ASC','shift ASC')
   end
 
   def destroy
