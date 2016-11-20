@@ -24,4 +24,9 @@ class AppointmentTest < ActiveSupport::TestCase
     assert_not @appointment.valid?
   end
 
+  test "add diagnosis_record" do
+    @appointment.diagnosis_record = "fake headache"
+    assert @appointment.valid?
+  end
+
 end
