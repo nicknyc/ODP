@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  require "net/http"
+  require "uri"
   def index
     if current_user.user_type_type == "Patient"
       @appointments = Appointment.where(patient_id: current_user.user_type_id).joins(:schedule).order('schedules.date ASC')
@@ -21,6 +23,7 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appt_params)
+
     x = true
     if params[:appointment_date] == "ไม่มีเวลาที่ใช้ได้"
       x = false
@@ -31,15 +34,24 @@ class AppointmentsController < ApplicationController
       shift = 1
       end
 
+
       date =  params[:appointment_date][6..15].to_date
-      @appointment.schedule_id = Schedule.where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+      if params[:pro_names].blank?
+        @appointment.schedule_id = Schedule.where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+      else
+        @appointment.doctor_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.doctor_id
+        @appointment.schedule_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.id
+      end
       @appointment.physical_record = PhysicalRecord.new()
     end
 
     respond_to do |format|
       if x&&@appointment.save
-        #CHECK HERE
-        UserMailer.create_appointment_email(Patient.find(params[:appointment][:patient_id]).user, @appointment)
+        @user = Patient.find(params[:appointment][:patient_id]).user
+        UserMailer.create_appointment_email(@user,@appointment).deliver_now
+        uri = URI.parse("https://sms.gipsic.com/api/send")
+
+        Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{@user.phone_number}","sender"=>"OTP","message"=>"วันนัดของคุณคือวัน #{@appointment.schedule.date} ช่วง #{params[:appointment_date][0..3]} กับคุณหมอ #{@appointment.doctor.user.first_name} โปรดยืนยันการนัดหมายนี้ด้วยอีเมลล์ของท่านค่ะ"})
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
         format.html { redirect_to appointments_path, notice: 'Fail' }
@@ -126,6 +138,18 @@ class AppointmentsController < ApplicationController
 
   def show
     @appointment = Appointment.find(params[:id])
+  end
+
+  def confirm_appointment
+    @appointment = Appointment.find(params[:id])
+    @appointment.status = 'Confirmed'
+    @appointment.save
+    @schedule = @appointment.schedule
+    @schedule.appointment = @schedule.appointment + 1
+    @schedule.save
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'ยืนยันการนัดแล้ว' }
+    end
   end
 
   def get_avail

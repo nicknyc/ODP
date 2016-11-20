@@ -8,7 +8,7 @@
       .div
         -if @prescriptions != []
           .previous-prescription
-            %table{:border => "1"}
+            %table.table
               %thead
                 %tr
                   %th ยา
@@ -19,7 +19,7 @@
                   %tr{:id => "prescription" + pr.id.to_s}
                     %td= pr.med
                     %td= pr.no
-                    %td= button_tag "ลบ" , type: 'button' , class: 'remove_med' , id: pr.id
+                    %td= button_tag "ลบ" , type: 'button' , class: 'remove_med btn btn-danger' , id: pr.id
       .prescription_slot#1
         = text_field_tag "med0" , "" , placeholder: "ชื่อยา"
         = text_field_tag "no0" , "" , placeholder: "จำนวน"
@@ -37,4 +37,4 @@
         = text_field_tag "no4" ,"", placeholder: "จำนวน"
 
 
-      = f.button :submit, "บันทึก"
+      = f.button :submit, "บันทึก"  ,class: 'btn btn-primary'

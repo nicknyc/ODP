@@ -1,8 +1,8 @@
 = form_tag patient_list_path, method: 'get' do
   = select_tag 'sort', options_for_select({"วันนี้"=>0,'ทุกช่วงเวลา'=>1}, params[:sort].blank?||params[:sort]=="0" ? 0:1)
-  = submit_tag 'ค้นหา'
+  = submit_tag 'ค้นหา' , class: "btn btn-primary"
 
-%table
+%table.table
   %thead
     %tr
       %th ID

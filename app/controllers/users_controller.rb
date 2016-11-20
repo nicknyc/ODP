@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  require "net/http"
+  require "uri"
 
   def index
     @users = User.all.order(:user_type_type)
@@ -93,12 +95,12 @@ class UsersController < ApplicationController
 
   def patient_list
     if params[:sort].blank?
-      @patients = Patient.joins(:appointments => :schedule).where('schedules.date > ?',Date.today)
+      @patients = Patient.joins(:appointments => :schedule).where('schedules.date = ?',Date.today)
     else
       if params[:sort] == '1'
         @patients = Patient.all
       else
-        @patients = Patient.joins(:appointments => :schedule).where('schedules.date > ?',Date.today)
+        @patients = Patient.joins(:appointments => :schedule).where('schedules.date = ?',Date.today)
       end
     end
 
@@ -144,6 +146,7 @@ class UsersController < ApplicationController
     render json: @proficiencies.map{|u| {label: u ,value: u}}
   end
 
+  
 
 
   private

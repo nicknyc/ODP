@@ -1,5 +1,4 @@
-%h1 DiagnosisRecord#show
-%p Find me in app/views/diagnosis_record/show.html.haml
+%h1 บันทึกคำวินิจฉัย
 .div
   ชื่อคนไข้ :
   =@appointment.patient.user.first_name + " " + @appointment.patient.user.last_name
@@ -33,5 +32,6 @@
               %td= pr.med
               %td= pr.no
 
-=link_to 'แก้ไขการตรวจ' , edit_diagnosis_record_path(id: @appointment.id)
-=link_to 'กลับ' , diagnosis_records_path
+=link_to 'แก้ไขการตรวจ' , edit_diagnosis_record_path(id: @appointment.id) ,class: 'btn btn-primary'
+.div
+  =link_to 'กลับ' , :back , class: "btn btn-success"

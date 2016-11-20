@@ -1,7 +1,7 @@
 = flash[:notice]
 %h1 รายชื่อผู้ใช้ทั้งหมด
-= link_to 'เพิ่มผู้ใช้ใหม่', new_user_path , method: :get
-%table
+= link_to 'เพิ่มผู้ใช้ใหม่', new_user_path , method: :get ,class: 'btn btn-primary'
+%table.table
   %thead
     %tr
       %th บทบาท

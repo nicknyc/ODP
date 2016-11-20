@@ -1,9 +1,8 @@
-%h1 prescription#show
-%p Find me in app/views/prescription/show.html.haml
-ยาที่จ่าย :
+%h1 ใบสั่งยา
+=label_tag 'ยาที่จ่าย :'
 -if @prescriptions != []
   .previous-prescription
-    %table{:border => "1"}
+    %table.table
       %thead
         %tr
           %th ยา
@@ -18,6 +17,6 @@
 
 -# =button_tag "เสร็จสิ้นการจ่ายยา" ,class: 'pres_done' , id: @appointment.id
 .pres_done
-  =link_to "เสร็จสิ้นการจ่ายยา" , '/pres_done?id=' + @appointment.id.to_s
+  =link_to "เสร็จสิ้นการจ่ายยา" , '/pres_done?id=' + @appointment.id.to_s ,class: 'btn btn-primary'
 .back
-=link_to 'กลับ' , :back
+=link_to 'กลับ' , :back , class: 'btn btn-success'

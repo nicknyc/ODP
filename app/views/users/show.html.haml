@@ -1,47 +1,29 @@
 .kn-users-show
+  %h2 ประวัติผู้ใช้
   .kn-users-show__field-header
-    ชื่อเต็ม
-  .kn-users-show__field-value
+    =label_tag 'ชื่อเต็ม'
     = @user.first_name+@user.last_name
-
-  .div
-    เพศ
-  .div
+    =label_tag 'เพศ'
     = @user.sex
-  .kn-users-show__field-header
-    อีเมล
-  .kn-users-show__field-value
+    = label_tag 'อีเมลล์'
     = @user.email
-
-  .kn-users-show__field-header
-    บทบาท
-  .kn-users-show__field-value
+    = label_tag 'บทบาท'
     = @user.user_type_type
-
-  .div
-    เลขไอดี
-  .div
+    = label_tag 'เลขรหัส'
     =@user.ext_id
-
-  .div
-    หมายเลขบัตรประชาชน
-  .div
+    = label_tag 'หมายเลขบัตรประชาชน'
     = @user.national_id
-
-  .div
-    เบอร์โทรศัพท์
-  .div
+    = label_tag 'เบอร์โทรศัพท์'
     = @user.phone_number
   -if @user.user_type_type == 'Patient'
     .div
-      กรุ๊ปเลือด
-      = @user.user_type.bloodType
+    = label_tag 'กรุ๊ปเลือด'
+    = @user.user_type.bloodType
+    = label_tag'ประวัติแพ้ยา'
+    = @user.user_type.allergyRecordList
     .div
-      ประวัติแพ้ยา
-      = @user.user_type.allergyRecordList
-    .div
-      ประวัติการรักษา
-      %table
+      = label_tag'ประวัติการรักษา'
+      %table.table
         %thead
           %tr
             %th ลำดับ
@@ -72,20 +54,20 @@
                   =link_to "ยกเลิก", '/destroy_appt/' + a.id.to_s , :data => { :confirm => 'ยืนยันการยกเลิก?'}
   -if @user.user_type_type == 'Doctor'
     .div
-      แผนก
-      = @user.user_type.proficiency
+    = label_tag 'แผนก'
+    = @user.user_type.proficiency
 
 
-
+.div
   -if current_user.user_type_type == 'Admin'
-    = link_to 'แก้ไข', edit_user_path(@user), class: 'kn-button__primary'
+    = link_to 'แก้ไข', edit_user_path(@user) ,class: 'btn btn-primary'
     -if @user.user_type_type == 'Doctor'
-      = link_to 'กลับ', :back
+      = link_to 'กลับ', :back ,class: "btn btn-success"
     -else
-      = link_to 'กลับ', users_path
+      = link_to 'กลับ', users_path ,class: "btn btn-success"
   -else
-    = link_to 'แก้ไข', edit_user_registration_path(@user)
+    = link_to 'แก้ไข', edit_user_registration_path(@user) ,class: 'btn btn-primary'
     -if @user.user_type_type == 'Doctor'
-      = link_to 'กลับ', :back
+      = link_to 'กลับ', :back ,class: "btn btn-success"
     -else
-      = link_to 'กลับ', root_path
+      = link_to 'กลับ', root_path ,class: "btn btn-success"
