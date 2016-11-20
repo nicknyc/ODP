@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  require "net/http"
+  require "uri"
 
   def index
     @users = User.all.order(:user_type_type)
@@ -144,6 +146,7 @@ class UsersController < ApplicationController
     render json: @proficiencies.map{|u| {label: u ,value: u}}
   end
 
+  
 
 
   private

@@ -1,4 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
+  require "net/http"
+  require "uri"
   # Override the action you want here.
   before_filter if: :devise_controller?
 
@@ -12,6 +14,8 @@ class RegistrationsController < Devise::RegistrationsController
 
    if resource.save
      UserMailer.welcome_email(resource).deliver_now
+     uri = URI.parse("https://sms.gipsic.com/api/send")
+     Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{resource.phone_number}","sender"=>"OTP","message"=>"ยินดีต้อนรับสู่ระบบ ODP คุณ #{resource.first_name} กรุณาเช็คอีเมลล์ของท่านเพื่อรับข้อมูลเพิ่มเติม"})
      year_id = Time.now.year % 100
      type_id = sprintf '%03d', resource.user_type_id
      user_id = sprintf '%03d', resource.id
