@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>ขอบคุณที่ใช้บริการสร้างเวลานัดของ ODP, คุณ <%= @user.first_name + " " + @user.last_name %></h1>
+    <p>
+      เวลานัดของคุณถูกเปลี่ยนแปลง
+      วันนัดใหม่ของคุณคือ <%= @appointment.schedule.date %>.<br>,
+      เวลา <%= @appointment.schedule.shift == 0 ? "เช้า" : "เย็น" %>
+      กับคุณหมอ <%= @appointment.doctor.user.first_name %>.<br>
+    </p>
+    <p>
+      คุณยืนยันการนัดหมายนี้ได้ด้วยลิงค์ <%= @url %>
+    </p>
+    <p>
+      คุณสามารถเลื่อนนัด หรือ ยกเลิกนัดแล้วนัดคุณหมอท่านใหม่ได้ ที่เว็บไซต์ ODP นะคะ
+    </p>
+  </body>
+</html>

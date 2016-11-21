@@ -26,4 +26,11 @@ class UserMailer < ApplicationMailer
 		@appointment = appointment
     mail(to: @user.email, subject: 'Appointment Notification Email from ODP')
   end
+
+	def remove_schedule_email(appointment)
+		@user = appointment.patient.user
+		@appointment = appointment
+		@url  = 'http://localhost:3000/confirm_appointment?id='+appointment.id.to_s
+		mail(to: @user.email, subject: 'Appointment Changes Email from ODP')
+	end
 end

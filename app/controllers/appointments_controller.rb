@@ -50,7 +50,6 @@ class AppointmentsController < ApplicationController
         @user = Patient.find(params[:appointment][:patient_id]).user
         UserMailer.create_appointment_email(@user,@appointment).deliver_now
         uri = URI.parse("https://sms.gipsic.com/api/send")
-
         Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{@user.phone_number}","sender"=>"SMS","message"=>"วันนัดของคุณคือวัน #{@appointment.schedule.date} ช่วง #{params[:appointment_date][0..3]} กับคุณหมอ #{@appointment.doctor.user.first_name} โปรดยืนยันการนัดหมายนี้ด้วยอีเมลล์ของท่านค่ะ"})
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
