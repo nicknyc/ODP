@@ -2,6 +2,7 @@
   = simple_form_for(@appointment) do |f|
     = f.error_notification
     .form-inputs
+      = f.input :icd10, required: true, label: "รหัส ICD10"
       = f.input :diagnosis_record , required: true, label: "การวินิจฉัย" ,:input_html => {:rows => 10 , :cols => 50}
       .div
         ใบสั่งยา
@@ -19,22 +20,28 @@
                   %tr{:id => "prescription" + pr.id.to_s}
                     %td= pr.med
                     %td= pr.no
+                    %td= pr.instruction
                     %td= button_tag "ลบ" , type: 'button' , class: 'remove_med btn btn-danger' , id: pr.id
       .prescription_slot#1
         = text_field_tag "med0" , "" , placeholder: "ชื่อยา"
         = text_field_tag "no0" , "" , placeholder: "จำนวน"
+        = text_field_tag "in0" , "" , placeholder: "วิธีใช้"
       .prescription_slot#2
         = text_field_tag "med1", "" , placeholder: "ชื่อยา"
         = text_field_tag "no1", "" ,placeholder: "จำนวน"
+        = text_field_tag "in1" , "" , placeholder: "วิธีใช้"
       .prescription_slot#3
         = text_field_tag "med2" ,"", placeholder: "ชื่อยา"
         = text_field_tag "no2" ,"", placeholder: "จำนวน"
+        = text_field_tag "in2" , "" , placeholder: "วิธีใช้"
       .prescription_slot#4
         = text_field_tag "med3" ,"", placeholder: "ชื่อยา"
         = text_field_tag "no3"  ,"", placeholder: "จำนวน"
+        = text_field_tag "in3" , "" , placeholder: "วิธีใช้"
       .prescription_slot#5
         = text_field_tag "med4" ,"", placeholder: "ชื่อยา"
         = text_field_tag "no4" ,"", placeholder: "จำนวน"
+        = text_field_tag "in4" , "" , placeholder: "วิธีใช้"
 
 
       = f.button :submit, "บันทึก"  ,class: 'btn btn-primary'

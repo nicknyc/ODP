@@ -14,10 +14,13 @@
 .div
   %b อาการ:
   = @appointment.symptom
--if @appointment.status == 'Done'
+-if @appointment.status == 'Finished'
   .div
     %b คำวินิจฉัย:
     = @appointment.diagnosis_record
+  .div
+    %b รหัสโรค ICD10:
+    = @appointment.icd10
   .div
     %b สภาพร่างกาย:
     .div
@@ -34,18 +37,19 @@
       = @appointment.physical_record.heartRate
   .div
     %b ใบสั่งยา:
-    -if @appointment.prescription == []
-      = "none"
-    -else
-      %table.table
-        %thead
-          %tr
-            %th ชื่อยา
-            %th จำนวน
-        %tbody
-          - @appointment.prescription.each do |a|
+    -if @prescriptions != []
+      .previous-prescription
+        %table.table
+          %thead
             %tr
-              %td= a["med"]
-              %td= a["no"]
+              %th ยา
+              %th จำนวน
+              %th วิธีใช้
+          %tbody
+            - @prescriptions.each do |pr|
+              %tr{:id => "prescription" + pr.id.to_s}
+                %td= pr.med
+                %td= pr.no
+                %td= pr.instruction
 .back
 =link_to 'กลับ' , :back ,class: "btn btn-success"

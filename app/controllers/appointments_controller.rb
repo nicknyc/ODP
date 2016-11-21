@@ -50,8 +50,7 @@ class AppointmentsController < ApplicationController
         @user = Patient.find(params[:appointment][:patient_id]).user
         UserMailer.create_appointment_email(@user,@appointment).deliver_now
         uri = URI.parse("https://sms.gipsic.com/api/send")
-
-        Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{@user.phone_number}","sender"=>"OTP","message"=>"วันนัดของคุณคือวัน #{@appointment.schedule.date} ช่วง #{params[:appointment_date][0..3]} กับคุณหมอ #{@appointment.doctor.user.first_name} โปรดยืนยันการนัดหมายนี้ด้วยอีเมลล์ของท่านค่ะ"})
+        Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{@user.phone_number}","sender"=>"SMS","message"=>"วันนัดของคุณคือวัน #{@appointment.schedule.date} ช่วง #{params[:appointment_date][0..3]} กับคุณหมอ #{@appointment.doctor.user.first_name} โปรดยืนยันการนัดหมายนี้ด้วยอีเมลล์ของท่านค่ะ"})
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
         format.html { redirect_to appointments_path, notice: 'Fail' }
@@ -69,6 +68,7 @@ class AppointmentsController < ApplicationController
           @p0.appointment_id = params[:id]
           @p0.med = params[:med0]
           @p0.no = params[:no0]
+          @p0.instruction = params[:in0]
           @p0.save
         end
       end
@@ -78,6 +78,7 @@ class AppointmentsController < ApplicationController
           @p1.appointment_id = params[:id]
           @p1.med = params[:med1]
           @p1.no = params[:no1]
+          @p1.instruction = params[:in1]
           @p1.save
         end
       end
@@ -87,6 +88,7 @@ class AppointmentsController < ApplicationController
           @p2.appointment_id = params[:id]
           @p2.med = params[:med2]
           @p2.no = params[:no2]
+          @p2.instruction = params[:in2]
           @p2.save
         end
       end
@@ -96,6 +98,7 @@ class AppointmentsController < ApplicationController
           @p3.appointment_id = params[:id]
           @p3.med = params[:med3]
           @p3.no = params[:no3]
+          @p3.instruction = params[:in3]
           @p3.save
         end
       end
@@ -105,6 +108,7 @@ class AppointmentsController < ApplicationController
           @p4.appointment_id = params[:id]
           @p4.med = params[:med4]
           @p4.no = params[:no4]
+          @p4.instruction = params[:in4]
           @p4.save
         end
       end
@@ -126,7 +130,10 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-
+    if Appointment.find(params[:id]).status == 'Confirmed'
+      @schedule = Appointment.find(params[:id]).schedule
+      @schedule.appointment -= 1
+    end
     respond_to do |format|
       if Appointment.find(params[:id]).destroy
         format.html { redirect_to appointments_path, notice: 'appointment was successfully destroyed.' }
@@ -138,6 +145,7 @@ class AppointmentsController < ApplicationController
 
   def show
     @appointment = Appointment.find(params[:id])
+    @prescriptions = Prescription.where(appointment_id: params[:id])
   end
 
   def confirm_appointment

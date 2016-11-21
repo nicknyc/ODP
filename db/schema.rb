@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20161121094559) do
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -26,7 +25,8 @@ ActiveRecord::Schema.define(version: 20161121094559) do
     t.integer  "doctor_id"
     t.integer  "physical_record_id"
     t.integer  "schedule_id"
-    t.text     "symptom"
+    t.text     "symptom",            limit: 65535
+    t.string   "icd10"
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -66,8 +66,9 @@ ActiveRecord::Schema.define(version: 20161121094559) do
     t.integer  "appointment_id"
     t.string   "med"
     t.integer  "no"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "instruction",    limit: 65535
   end
 
   create_table "schedules", force: :cascade do |t|
