@@ -1,4 +1,3 @@
-= flash[:notice]
 %h2 รายการการนัดหมาย
 = link_to 'เพิ่มการนัดหมาย', new_appointment_path , method: :get , class: "btn btn-primary"
 %table.table
@@ -31,6 +30,6 @@
         %td= a.status
         %td
           =link_to "ดู",a
-          -if a.status != "Done"
+          -if a.status != "Finished"
             =link_to "เลื่อน",edit_appointment_path(a)
             =link_to "ยกเลิก", '/destroy_appt/' + a.id.to_s , :data => { :confirm => 'ยืนยันการยกเลิก?'}

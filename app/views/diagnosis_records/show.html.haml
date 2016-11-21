@@ -21,16 +21,18 @@
   ยาที่จ่าย :
   -if @prescriptions != []
     .previous-prescription
-      %table{:border => "1"}
+      %table.table
         %thead
           %tr
             %th ยา
             %th จำนวน
+            %th วิธีใช้
         %tbody
           - @prescriptions.each do |pr|
             %tr{:id => "prescription" + pr.id.to_s}
               %td= pr.med
               %td= pr.no
+              %td= pr.instruction
 
 =link_to 'แก้ไขการตรวจ' , edit_diagnosis_record_path(id: @appointment.id) ,class: 'btn btn-primary'
 .div

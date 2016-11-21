@@ -68,6 +68,7 @@ class AppointmentsController < ApplicationController
           @p0.appointment_id = params[:id]
           @p0.med = params[:med0]
           @p0.no = params[:no0]
+          @p0.instruction = params[:in0]
           @p0.save
         end
       end
@@ -77,6 +78,7 @@ class AppointmentsController < ApplicationController
           @p1.appointment_id = params[:id]
           @p1.med = params[:med1]
           @p1.no = params[:no1]
+          @p1.instruction = params[:in1]
           @p1.save
         end
       end
@@ -86,6 +88,7 @@ class AppointmentsController < ApplicationController
           @p2.appointment_id = params[:id]
           @p2.med = params[:med2]
           @p2.no = params[:no2]
+          @p2.instruction = params[:in2]
           @p2.save
         end
       end
@@ -95,6 +98,7 @@ class AppointmentsController < ApplicationController
           @p3.appointment_id = params[:id]
           @p3.med = params[:med3]
           @p3.no = params[:no3]
+          @p3.instruction = params[:in3]
           @p3.save
         end
       end
@@ -104,6 +108,7 @@ class AppointmentsController < ApplicationController
           @p4.appointment_id = params[:id]
           @p4.med = params[:med4]
           @p4.no = params[:no4]
+          @p4.instruction = params[:in4]
           @p4.save
         end
       end
@@ -126,7 +131,7 @@ class AppointmentsController < ApplicationController
 
   def destroy
     if Appointment.find(params[:id]).status == 'Confirmed'
-      @schedule = Appointment.schedule
+      @schedule = Appointment.find(params[:id]).schedule
       @schedule.appointment -= 1
     end
     respond_to do |format|
@@ -140,6 +145,7 @@ class AppointmentsController < ApplicationController
 
   def show
     @appointment = Appointment.find(params[:id])
+    @prescriptions = Prescription.where(appointment_id: params[:id])
   end
 
   def confirm_appointment

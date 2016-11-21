@@ -7,12 +7,15 @@
         %tr
           %th ยา
           %th จำนวน
+          %th วิธีใช้
           %th หยิบยา
+          %th วิธีใช้ยา
       %tbody
         - @prescriptions.each do |pr|
           %tr{:id => "prescription" + pr.id.to_s}
             %td= pr.med
             %td= pr.no
+            %td= pr.instruction
             %td= check_box_tag pr.id, 1 , false , class: 'medcheck'
 
 -# =button_tag "เสร็จสิ้นการจ่ายยา" ,class: 'pres_done' , id: @appointment.id
