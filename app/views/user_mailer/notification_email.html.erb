@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>ขอบคุณที่ใช้บริการสร้างเวลานัดของ ODP, คุณ <%= @user.first_name + " " + @user.last_name %></h1>
+    <p>
+      วันนัดของคุณคือ <%= @appointment.schedule.date %>.<br>,
+      เวลา <%= @appointment.schedule.shift == 0 ? "เช้า" : "เย็น" %>
+      กับคุณหมอ <%= @appointment.doctor.user.first_name %>.<br>
+    </p>
+    <p>
+      กรุณามาตามเวลานัดเพื่อรักษาประโยชน์ของท่านนะคะ
+    </p>
+  </body>
+</html>

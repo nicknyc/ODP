@@ -1,6 +1,6 @@
 class PrescriptionsController < ApplicationController
   def index
-    @appointments = Appointment.joins(:schedule).where('appointments.status = "Done" OR appointments.status = "Finished"').where('schedules.date = ?',Date.today).order('schedules.shift ASC')
+    @appointments = Appointment.joins(:schedule).where('appointments.status = "Done" OR appointments.status = "Finished"').where('schedules.date >= ?',Date.today).order('schedules.shift ASC')
   end
 
   def show

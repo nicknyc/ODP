@@ -111,7 +111,20 @@ class SchedulesController < ApplicationController
   end
 
   def remove_schedule
-    Schedule.find(params[:id]).delete
+    @s = Schedule.find(params[:id])
+    @appointments = Appointment.where(schedule_id: params[:id])
+    if !@appointments.nil?
+      @appointments.each do |a|
+        a.schedule = Schedule.where(doctor_id: @s.doctor_id).where('date != ? && date > ?',@s.date,Date.today).first
+        a.status = 'Pending'
+        a.save
+        UserMailer.remove_schedule_email(a).deliver_now
+        uri = URI.parse("https://sms.gipsic.com/api/send")
+        Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{a.patient.user.phone_number}","sender"=>"SMS","message"=>"เวลานัดของคุณถูกเปลี่ยนแปลง #{a.schedule.date} ช่วง #{a.schedule.shift == 0 ? 'เช้า' : 'เย็น'} กับคุณหมอ #{a.doctor.user.first_name} โปรดยืนยันการนัดหมายใหม่ด้วยอีเมลล์ของท่าน หรือเข้าไปเลื่อนหรือยกเลิกนัดได้ในเว็บไซต์ค่ะ"})
+      end
+    end
+
+    @s.destroy
     respond_to do |format|
         format.json { head :no_content }
     end
