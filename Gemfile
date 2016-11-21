@@ -38,7 +38,7 @@ gem 'jquery-turbolinks'
 gem 'adminlte2-rails'
 gem 'bootstrap-sass'
 gem 'postmark-rails'
-
+gem 'whenever'
 
 
 

@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     elsif params[:Role] == 'nurse'
       @user.user_type = Nurse.new()
       role_num = 5
-    else  params[:Role] == 'pharmacist'
+    else 
       @user.user_type = Pharmacist.new()
       role_num = 6
     end
@@ -143,7 +143,7 @@ class UsersController < ApplicationController
     render json: @proficiencies.map{|u| {label: u ,value: u}}
   end
 
-  
+
 
 
   private

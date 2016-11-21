@@ -51,7 +51,7 @@ class AppointmentsController < ApplicationController
         UserMailer.create_appointment_email(@user,@appointment).deliver_now
         uri = URI.parse("https://sms.gipsic.com/api/send")
 
-        Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{@user.phone_number}","sender"=>"OTP","message"=>"วันนัดของคุณคือวัน #{@appointment.schedule.date} ช่วง #{params[:appointment_date][0..3]} กับคุณหมอ #{@appointment.doctor.user.first_name} โปรดยืนยันการนัดหมายนี้ด้วยอีเมลล์ของท่านค่ะ"})
+        Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{@user.phone_number}","sender"=>"SMS","message"=>"วันนัดของคุณคือวัน #{@appointment.schedule.date} ช่วง #{params[:appointment_date][0..3]} กับคุณหมอ #{@appointment.doctor.user.first_name} โปรดยืนยันการนัดหมายนี้ด้วยอีเมลล์ของท่านค่ะ"})
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
         format.html { redirect_to appointments_path, notice: 'Fail' }
@@ -126,7 +126,10 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-
+    if Appointment.find(params[:id]).status == 'Confirmed'
+      @schedule = Appointment.schedule
+      @schedule.appointment -= 1
+    end
     respond_to do |format|
       if Appointment.find(params[:id]).destroy
         format.html { redirect_to appointments_path, notice: 'appointment was successfully destroyed.' }
