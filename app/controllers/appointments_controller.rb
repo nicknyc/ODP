@@ -37,23 +37,26 @@ class AppointmentsController < ApplicationController
 
       date =  params[:appointment_date][6..15].to_date
       if params[:pro_names].blank?
-        @appointment.schedule_id = Schedule.where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+        @appointment.schedule_id = Schedule.where('appointment != 20').where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first.id
+        @schedule = Schedule.where('appointment != 20').where('shift = ? AND date = ? AND doctor_id = ?',shift,date,params[:appointment][:doctor_id]).first
       else
-        @appointment.doctor_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.doctor_id
-        @appointment.schedule_id = Schedule.joins(:doctor).where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.id
+        @appointment.doctor_id = Schedule.joins(:doctor).where('schedules.appointment != 20').where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first.doctor_id
+        @schedule = Schedule.joins(:doctor).where('schedules.appointment != 20').where('doctors.proficiency = ?',params[:pro_names]).where('schedules.shift = ? AND schedules.date = ? ',shift,date).first
+        @appointment.schedule_id = @schedule.id
       end
       @appointment.physical_record = PhysicalRecord.new()
     end
 
     respond_to do |format|
-      if x&&@appointment.save
+      if x&&check_unique_app(params[:appointment][:doctor_id],params[:appointment][:patient_id],@schedule.id)
+        @appointment.save
         @user = Patient.find(params[:appointment][:patient_id]).user
         UserMailer.create_appointment_email(@user,@appointment).deliver_now
         uri = URI.parse("https://sms.gipsic.com/api/send")
         Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{@user.phone_number}","sender"=>"SMS","message"=>"วันนัดของคุณคือวัน #{@appointment.schedule.date} ช่วง #{params[:appointment_date][0..3]} กับคุณหมอ #{@appointment.doctor.user.first_name} โปรดยืนยันการนัดหมายนี้ด้วยอีเมลล์ของท่านค่ะ"})
         format.html { redirect_to appointments_path, notice: 'appointment was successfully created.' }
       else
-        format.html { redirect_to appointments_path, notice: 'Fail' }
+        format.html { redirect_to appointments_path, error: 'มีนัดหมายในเวลานี้อยู่แล้ว' }
       end
     end
   end
@@ -179,6 +182,15 @@ class AppointmentsController < ApplicationController
   def check_unique(id,med,no)
     s = Prescription.where(appointment_id: id).where(med: med).where(no: no)
     if s == []
+      return true
+    else
+      return false
+    end
+  end
+
+  def check_unique_app(doctor_id,patient_id,schedule_id)
+    a = Appointment.where(doctor_id: doctor_id).where(patient_id: patient_id).where(schedule_id: schedule_id)
+    if a == []
       return true
     else
       return false

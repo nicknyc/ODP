@@ -1,10 +1,11 @@
 class PhysicalRecordsController < ApplicationController
   def index
-    @appointments = Appointment.joins(:schedule).where('appointments.status = ?',"Confirmed").where('schedules.date = ?',Date.today).order('schedules.shift ASC')
+    @appointments = Appointment.joins(:schedule).where('appointments.status = ?',"Confirmed").where('schedules.date >= ?',Date.today).order('schedules.shift ASC')
   end
 
   def new
     @physical_record = PhysicalRecord.where(appointment_id: params[:id]).first
+
   end
 
   def edit
@@ -18,6 +19,9 @@ class PhysicalRecordsController < ApplicationController
     @physical_record.save
     respond_to do |format|
       if @physical_record.update(record_params)
+        @appointment = Appointment.find(params[:id])
+        @appointment.status = "Recorded"
+        @appointment.save
         format.html { redirect_to physical_records_path, notice: 'PhysicalRecord was successfully updated.' }
       else
         format.html { render :edit }

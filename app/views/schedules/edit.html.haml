@@ -23,5 +23,5 @@
         %td= s.date
         %td= s.appointment
         %td= button_tag "ลบ" , class: 'remove btn btn-danger' , id: s.id
-
+= will_paginate @schedules
 =link_to 'กลับ' , schedules_path

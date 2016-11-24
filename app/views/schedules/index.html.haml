@@ -16,30 +16,12 @@
 
   %tbody
     - @users.each do |user|
-      -schedule = user.user_type.schedules.order('date ASC','shift ASC')
       %tr
         -if current_user.user_type_type != "Doctor"
           %td= user.ext_id
           %td= user.first_name + " " + user.last_name
-        %td
-          %table.table
-            %thead
-              %tr
-                %th กะ
-                %th วันที่
-                %th จำนวนนัด
+        %td= link_to 'ดูตารางเวลา' , schedule_path(user.id)
 
 
-
-            %tbody
-              - schedule.each do |s|
-                %tr
-                  %td
-                    -if s.shift == 0
-                      = "เช้า"
-                    -else
-                      = "เย็น"
-                  %td= s.date
-                  %td= s.appointment
         %td
           = link_to 'แก้ไข', edit_schedule_path(user) , method: :get , class: "btn btn-warning"

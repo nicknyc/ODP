@@ -39,7 +39,7 @@ gem 'adminlte2-rails'
 gem 'bootstrap-sass'
 gem 'postmark-rails'
 gem 'whenever'
-
+gem 'will_paginate'
 
 
 # Use Capistrano for deployment

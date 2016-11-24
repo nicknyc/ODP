@@ -1,9 +1,9 @@
 class SchedulesController < ApplicationController
   def index
     if current_user.user_type_type == 'Doctor'
-      @users = User.where(first_name: current_user.first_name)
+      @users = User.where(first_name: current_user.first_name).paginate(:page => params[:page], :per_page => 10)
     else
-      @users = User.where("user_type_type = 'Doctor' && ban = false").order(:first_name)
+      @users = User.where("user_type_type = 'Doctor' && ban = false").order(:first_name).paginate(:page => params[:page], :per_page => 10)
     end
   end
 
@@ -94,12 +94,12 @@ class SchedulesController < ApplicationController
   end
 
   def edit
-    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? && users.id = ?',false,params[:id]).order('date ASC','shift ASC')
+    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? && users.id = ?',false,params[:id]).order('date ASC','shift ASC').paginate(:page => params[:page], :per_page => 10)
     @user = User.find(params[:id])
   end
 
   def show
-    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? && users.id = ?',false,params[:id]).order('date ASC','shift ASC')
+    @schedules = Schedule.joins(:doctor => :user).where('users.ban = ? && users.id = ?',false,params[:id]).order('date ASC','shift ASC').paginate(:page => params[:page], :per_page => 10)
   end
 
   def destroy
@@ -111,9 +111,10 @@ class SchedulesController < ApplicationController
     @appointments = Appointment.where(schedule_id: params[:id])
     if !@appointments.nil?
       @appointments.each do |a|
-        a.schedule = Schedule.where(doctor_id: @s.doctor_id).where('date != ? && date > ?',@s.date,Date.today).first
+        a.schedule = Schedule.where(doctor_id: @s.doctor_id).where('date != ?',@s.date).first
         a.status = 'Pending'
         a.save
+        @s.destroy
         UserMailer.remove_schedule_email(a).deliver_now
         uri = URI.parse("https://sms.gipsic.com/api/send")
         Net::HTTP.post_form(uri, {"key" => "x1HGV2MxTO79RK2Ekp74WYR0KLimv94y", "secret" => "3L55iQfLC7Dl0wH1KM42F7JaYWta618l","phone"=>"#{a.patient.user.phone_number}","sender"=>"SMS","message"=>"เวลานัดของคุณถูกเปลี่ยนแปลง #{a.schedule.date} ช่วง #{a.schedule.shift == 0 ? 'เช้า' : 'เย็น'} กับคุณหมอ #{a.doctor.user.first_name} โปรดยืนยันการนัดหมายใหม่ด้วยอีเมลล์ของท่าน หรือเข้าไปเลื่อนหรือยกเลิกนัดได้ในเว็บไซต์ค่ะ"})

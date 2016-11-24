@@ -20,8 +20,8 @@
             = "เช้า"
           -else
             = "บ่าย"
-          %th= a.doctor.user.first_name + " " + a.doctor.user.last_name
-          %th= a.patient.user.first_name + " " + a.patient.user.last_name
+        %td= a.doctor.user.first_name + " " + a.doctor.user.last_name
+        %td= a.patient.user.first_name + " " + a.patient.user.last_name
         %td= a.physical_record.weight.nil? ? "ยังไม่ได้บันทึก" : "บันทึกแล้ว"
         %td
           =link_to "ดูการนัด",a

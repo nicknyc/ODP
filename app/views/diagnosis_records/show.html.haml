@@ -34,6 +34,7 @@
               %td= pr.no
               %td= pr.instruction
 
-=link_to 'แก้ไขการตรวจ' , edit_diagnosis_record_path(id: @appointment.id) ,class: 'btn btn-primary'
+-if current_user.user_type_type == 'Doctor' || @appointment.status != 'Finished'
+  =link_to 'แก้ไขการตรวจ' , edit_diagnosis_record_path(id: @appointment.id) ,class: 'btn btn-primary'
 .div
-  =link_to 'กลับ' , :back , class: "btn btn-success"
+=link_to 'กลับ' , :back , class: "btn btn-success"

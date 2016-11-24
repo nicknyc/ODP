@@ -70,6 +70,8 @@ var ready = function () {
   $(".medcheck").change(function(){
     if ($('.medcheck:checked').length == $('.medcheck').length) {
        $(".pres_done").show()
+    } else {
+      $(".pres_done").hide()
     }
 });
 
